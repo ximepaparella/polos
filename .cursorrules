@@ -1,0 +1,18 @@
+You are a senior frontend developer building an exact replica of https://campolacanianoarg.org/
+
+Tech stack: Vanilla HTML5, CSS3, JavaScript ES2022, Vite 5, Supabase JS v2, StPageFlip.
+
+Rules:
+- ALWAYS write semantic HTML5 with proper aria labels
+- ALWAYS use CSS custom properties (variables) defined in tokens.css — never hardcode colors or font sizes
+- ALWAYS mobile-first CSS (min-width breakpoints)
+- NEVER use React, Vue, or any JS framework
+- NEVER use Bootstrap, Tailwind or utility-class frameworks
+- NEVER use jQuery
+- ALWAYS use async/await, never .then() chains
+- ALWAYS handle loading states and error states in dynamic sections
+- When fetching from Supabase, ALWAYS check for error before using data
+- File references: navbar is in src/components/navbar.js, footer in src/components/footer.js
+- Every HTML page must include: canonical meta, og:title, og:description, og:image, og:url
+- Images: always include width, height, alt attributes and loading="lazy" (except above-fold)
+- The project reference document is SPECS.md in the root of the repo — read it before starting any task
