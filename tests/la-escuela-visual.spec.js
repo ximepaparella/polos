@@ -104,13 +104,13 @@ test.describe('SPEC-013 la-escuela — review vs producción', () => {
 
     await page.goto(LOCAL_URL, { waitUntil: 'networkidle' })
     const local = await getPageMetrics(page, true)
-    expect(local.h1.fontSize).toBe('72px')
+    expect(local.h1.fontSize).toBe('52px')
     expect(local.acercaTitle.fontSize).toBe('32px')
     expect(local.objetivoPanel.backgroundColor).toBe('rgb(242, 242, 242)')
     expect(local.acercaHasGradient).toBe(true)
     expect(local.alcanceHasGradient).toBe(true)
     expect(local.colageBlockBg).toBe('rgb(242, 242, 242)')
-    expect(local.ctaTitle.fontSize).toBe('52px')
+    expect(local.ctaTitle.fontSize).toBe('40px')
     expect(local.ctaTitle.color).toBe('rgb(255, 255, 255)')
     expect(local.imageCount).toBe(2)
     expect(local.responsableCount).toBe(4)
@@ -131,7 +131,7 @@ test.describe('SPEC-013 la-escuela — review vs producción', () => {
 
     await page.goto(LOCAL_URL, { waitUntil: 'networkidle' })
     const local = await getPageMetrics(page, true)
-    expect(local.h1.fontSize).toBe('32px')
+    expect(local.h1.fontSize).toBe('33px')
     expect(local.acercaTitle.fontSize).toBe('22px')
   })
 

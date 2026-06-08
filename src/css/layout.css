@@ -1,0 +1,53 @@
+/*
+ * Layout utilities — patrón compartido del sitio
+ * max-width var(--max-width) (1200px) + padding-inline 64px (mobile: 24px)
+ * Migración gradual: reemplazar max-width/padding sueltos por estas clases en PRs futuros.
+ */
+
+.section {
+  padding-block: var(--section-padding-block);
+  padding-inline: var(--section-padding-inline);
+}
+
+.section__inner {
+  width: 100%;
+  max-width: var(--layout-max-width);
+  margin-inline: auto;
+}
+
+.section__inner--narrow {
+  max-width: var(--layout-content-narrow);
+}
+
+.section-cta {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.section-cta__bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.section-cta__bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.section-cta__inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-6);
+  max-width: var(--layout-content-narrow);
+  margin-inline: auto;
+  text-align: center;
+}

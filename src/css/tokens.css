@@ -26,12 +26,14 @@
   --color-footer-bg: #f2f2f2;
   --color-footer-text: #000000;
   --color-footer-link-hover: #7a7a7a;
+  --color-success: #1a6b3c;
+  --color-error: #b42318;
   --font-size-footer-contact: 1.375rem; /* 22px */
   --font-size-footer-email: 1.625rem; /* 26px */
   --font-size-footer-sitemap-title: 0.875rem; /* 14px */
   --font-size-footer-link: 0.75rem; /* 12px */
   --footer-link-row-height: 2.3125rem; /* 37px */
-  --footer-brand-gap: 130px;
+  --footer-brand-gap: 40px;
   --footer-main-padding-inline: 30px;
   --footer-legal-padding-inline: 24px;
   --footer-legal-gap: 32px;
@@ -69,15 +71,24 @@
   /* LAYOUT */
   --max-width: 1200px;
   --max-width-content: 780px;
+  --layout-max-width: var(--max-width);
+  --layout-content-narrow: 906px;
+  --layout-content-copy: 720px;
+  --section-padding-block: 112px;
+  --section-padding-inline: var(--home-section-padding-inline);
   --nav-height: 64px;
+  --form-max-width: 400px;
+  --form-field-gap: var(--space-6);
+  --form-group-gap: var(--space-4);
 
   /* BORDES */
   --radius-sm: 4px;
   --radius-md: 8px;
   --radius-lg: 12px;
   --radius-btn: 12px;
-  --font-size-hero-title: 4.5rem; /* 72px */
+  --font-size-hero-title: 3.5rem; /* 72px */
   --font-size-section-title: 3.25rem; /* 52px */
+  --font-size-section-title-md: 2.5rem; /* 40px — CTAs y bloques destacados */
   --hero-height-desktop: 684px;
   --home-section-padding-inline: 64px;
 

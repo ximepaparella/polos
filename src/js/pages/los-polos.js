@@ -1,5 +1,5 @@
 import { initLayout } from '../init-layout.js'
-import { POLOS_PAGE, POLOS_COLUMNS, POLOS_LOGOS } from '../../data/polos-facl.js'
+import { POLOS_PAGE, POLOS_LOGOS } from '../../data/polos-facl.js'
 import { escapeHtml } from '../utils/escape-html.js'
 
 initLayout()
@@ -64,27 +64,16 @@ function renderPolos() {
     return
   }
 
-  const poloMap = new Map(POLOS_PAGE.polos.map((polo) => [polo.name, polo.members]))
-
-  container.innerHTML = POLOS_COLUMNS.map((columnPolos) => {
-    const blocks = columnPolos
-      .map((name) => {
-        const members = poloMap.get(name) ?? []
-        const spacedClass = name === 'Polo Nuevo Cuyo' ? ' polos-polo--spaced' : ''
-
-        return `
-          <article class="polos-polo${spacedClass}">
-            <h3 class="polos-polo__name">${escapeHtml(name)}</h3>
-            <div class="polos-polo__members">
-              ${members.map((member) => `<p>${escapeHtml(member)}</p>`).join('')}
-            </div>
-          </article>
-        `
-      })
-      .join('')
-
-    return `<div class="polos-columns__col">${blocks}</div>`
-  }).join('')
+  container.innerHTML = POLOS_PAGE.polos
+    .map((polo) => `
+      <article class="polos-polo">
+        <h3 class="polos-polo__name">${escapeHtml(polo.name)}</h3>
+        <ul class="polos-polo__members" role="list">
+          ${polo.members.map((member) => `<li class="polos-polo__member">${escapeHtml(member)}</li>`).join('')}
+        </ul>
+      </article>
+    `)
+    .join('')
 }
 
 renderHeroSubtitle()

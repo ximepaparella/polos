@@ -8,8 +8,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10px;
-  max-width: 1312px;
+  gap: var(--space-8);
+  max-width: var(--max-width);
   margin-inline: auto;
   text-align: center;
 }
@@ -31,7 +31,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0;
+  gap: var(--space-3);
 }
 
 .contacto-main__title {
@@ -62,8 +62,11 @@
 }
 
 .contacto-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--form-field-gap);
   width: 100%;
-  max-width: 280px;
+  max-width: var(--form-max-width);
   text-align: left;
 }
 
@@ -85,12 +88,12 @@
   font-weight: 400;
   line-height: 1.5;
   color: var(--color-text-ink);
-  margin: 0 0 10px;
+  margin: 0;
   text-align: center;
 }
 
 .form__group {
-  margin-bottom: 20px;
+  margin: 0;
 }
 
 .form__group label {
@@ -112,8 +115,8 @@
   font-weight: 400;
   line-height: 1.25;
   color: var(--color-text-primary);
-  background-color: transparent;
-  border: 0;
+  background-color: var(--color-bg);
+  border: 1px solid var(--color-border);
   border-radius: 0;
 }
 
@@ -154,11 +157,11 @@
 }
 
 .form-message--success {
-  color: #1a6b3c;
+  color: var(--color-success);
 }
 
 .form-message--error {
-  color: #b42318;
+  color: var(--color-error);
 }
 
 .contacto-wave {
@@ -180,7 +183,7 @@
 }
 
 .contacto-ubicaciones__inner {
-  max-width: 1312px;
+  max-width: var(--max-width);
   margin-inline: auto;
 }
 
@@ -234,12 +237,12 @@
 }
 
 .contacto-polo {
-  padding: 12px 0 12px 32px;
+  padding: var(--space-3) 0 var(--space-3) var(--space-8);
   cursor: pointer;
 }
 
 .contacto-polo--active {
-  padding: 0 0 0 32px;
+  padding: var(--space-3) 0 var(--space-3) var(--space-8);
   background-color: var(--color-bg);
   border-left: 4px solid var(--color-divider-yellow);
 }

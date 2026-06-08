@@ -81,7 +81,7 @@ test.describe('SPEC-021 publicaciones — review vs producción', () => {
     await page.waitForFunction(() => document.querySelectorAll('.card-publicacion').length >= 2)
 
     const local = await getPageMetrics(page, true)
-    expect(local.h1.fontSize).toBe('72px')
+    expect(local.h1.fontSize).toBe('52px')
     expect(local.h1.textAlign).toBe('center')
     expect(local.introTitle.fontSize).toBe('48px')
     expect(local.cardTitle.fontSize).toBe('26px')

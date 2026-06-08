@@ -10,9 +10,8 @@
   align-items: flex-start;
   justify-content: space-between;
   gap: var(--space-8);
-  max-width: 1440px;
+  max-width: var(--max-width);
   margin-inline: auto;
-  padding-inline: var(--footer-main-padding-inline);
   min-height: 148px;
 }
 
@@ -124,15 +123,14 @@
   display: flex;
   flex-direction: column;
   gap: var(--footer-legal-gap);
-  max-width: 1440px;
+  max-width: var(--max-width);
   margin-top: var(--footer-main-to-legal-gap);
   margin-inline: auto;
-  padding-inline: var(--footer-legal-padding-inline);
+  padding-inline: var(--space-6);
 }
 
 .footer__divider {
   width: 100%;
-  max-width: 1375px;
   height: 3px;
   line-height: 0;
 }
@@ -169,6 +167,7 @@
 @media (max-width: 809px) {
   .footer {
     padding-top: var(--space-8);
+    padding-bottom: 47px;
   }
 
   .footer__main {

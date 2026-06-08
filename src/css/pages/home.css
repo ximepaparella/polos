@@ -103,7 +103,7 @@
 
 .publicaciones-cta__title {
   font-family: var(--font-nav);
-  font-size: var(--font-size-section-title);
+  font-size: var(--font-size-section-title-md);
   font-weight: 400;
   line-height: 1.1;
   color: #000000;
@@ -141,10 +141,9 @@
 .ultimas-publicaciones__header {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  gap: 5px;
-  width: 50%;
-  max-width: 656px;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
 }
 
 .section-label {
@@ -178,7 +177,7 @@
 .publicaciones-grid {
   display: flex;
   flex-wrap: wrap;
-  justify-content: flex-start;
+  justify-content: center;
   gap: 26px;
   padding: var(--space-6);
   width: 100%;

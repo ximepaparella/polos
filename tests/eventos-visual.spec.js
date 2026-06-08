@@ -104,11 +104,12 @@ test.describe('SPEC-020 eventos — review vs producción', () => {
     expect(local.title.fontSize).toBe('52px')
     expect(local.subtitle.fontSize).toBe('18px')
     expect(local.cardTitle.fontSize).toBe('22px')
-    expect(local.gridColumns).toBe(2)
+    expect(local.gridColumns).toBe(3)
     expect(local.eventCount).toBe(5)
     expect(local.hasInstagramCta).toBe(true)
     expect(local.hasHeroMark).toBe(true)
     expect(local.hasCtaText).toBe(true)
+    expect(local.ctaTitle.fontSize).toBe('40px')
   })
 
   test('métricas mobile alineadas a producción', async ({ page }) => {

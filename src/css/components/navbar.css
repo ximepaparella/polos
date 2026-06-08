@@ -16,7 +16,6 @@
   height: 100%;
   max-width: var(--max-width);
   margin-inline: auto;
-  padding-inline: var(--space-6);
 }
 
 .navbar__logo {

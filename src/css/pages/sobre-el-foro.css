@@ -12,7 +12,7 @@
   flex-direction: column;
   align-items: center;
   gap: 33px;
-  max-width: 1312px;
+  max-width: var(--max-width);
   margin-inline: auto;
   text-align: center;
 }
@@ -85,7 +85,7 @@
 }
 
 .sobre-historia__inner {
-  max-width: 1312px;
+  max-width: var(--max-width);
   margin-inline: auto;
 }
 
@@ -165,10 +165,10 @@
 
 .carta-ifcl__title {
   font-family: var(--font-nav);
-  font-size: var(--font-size-section-title);
+  font-size: var(--font-size-section-title-md);
   font-weight: 400;
   line-height: 1.1;
-  color: #000000;
+  color: var(--color-text-primary);
   margin: 0;
   width: 100%;
   margin-bottom: var(--space-4);
@@ -218,7 +218,7 @@
   align-items: flex-start;
   gap: 44px;
   width: 100%;
-  max-width: 1312px;
+  max-width: var(--max-width);
   margin-inline: auto;
   margin-bottom: var(--space-20);
 }
@@ -251,8 +251,12 @@
   padding: 112px var(--home-section-padding-inline);
 }
 
+.miembros-section__inner {
+  max-width: var(--max-width);
+  margin-inline: auto;
+}
+
 .miembros-section__header {
-  width: 59%;
   max-width: 774px;
   margin-bottom: var(--space-10);
 }
@@ -278,7 +282,6 @@
 .miembros__list {
   column-count: 3;
   column-gap: 44px;
-  max-width: 1312px;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -337,10 +340,6 @@
     flex-wrap: unset;
   }
 
-  .miembros-section__header {
-    width: 100%;
-  }
-
   .miembros__list {
     column-count: 1;
   }
@@ -365,9 +364,5 @@
 
   .miembros__list {
     column-count: 2;
-  }
-
-  .miembros-section__header {
-    width: 73%;
   }
 }

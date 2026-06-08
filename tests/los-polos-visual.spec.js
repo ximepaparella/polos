@@ -51,7 +51,7 @@ async function getPageMetrics(page, useLocal = false) {
         )
 
     const memberSample = isLocal
-      ? document.querySelector('.polos-polo__members p')
+      ? document.querySelector('.polos-polo__member')
       : [...document.querySelectorAll('p')].find((el) =>
           el.textContent?.startsWith('Abínzano')
         )
@@ -70,16 +70,16 @@ async function getPageMetrics(page, useLocal = false) {
       member: read(memberSample),
       poloCount: poloNames.length,
       memberCount: isLocal
-        ? document.querySelectorAll('.polos-polo__members p').length
+        ? document.querySelectorAll('.polos-polo__member').length
         : 0,
-      columnCount: isLocal ? document.querySelectorAll('.polos-columns__col').length : 0,
+      poloArticleCount: isLocal ? document.querySelectorAll('.polos-polo').length : 0,
       logoCount: isLocal ? document.querySelectorAll('.polos-hero__logos-track img').length : 0,
       hasErroneousSubtitle: isLocal
         ? Boolean(document.querySelector('.polos-miembros__subtitle'))
         : false,
-      gridColumns: isLocal
-        ? getComputedStyle(document.querySelector('.polos-columns')).gridTemplateColumns
-        : null,
+      membersGridColumns: isLocal
+        ? getComputedStyle(document.querySelector('.polos-polo__members')).gridTemplateColumns.split(' ').length
+        : 0,
     }
   }, useLocal)
 }
@@ -109,7 +109,8 @@ test.describe('SPEC-012 los-polos — review vs producción', () => {
     expect(local.member.fontSize).toBe('18px')
     expect(local.poloCount).toBe(6)
     expect(local.memberCount).toBe(136)
-    expect(local.columnCount).toBe(3)
+    expect(local.poloArticleCount).toBe(6)
+    expect(local.membersGridColumns).toBe(3)
     expect(local.equipoLabel.fontSize).toBe('14px')
     expect(local.logoCount).toBe(12)
     expect(local.hasErroneousSubtitle).toBe(false)
@@ -127,7 +128,7 @@ test.describe('SPEC-012 los-polos — review vs producción', () => {
     const local = await getPageMetrics(page, true)
     expect(local.title.fontSize).toBe('33px')
     expect(local.subtitle.fontSize).toBe('14px')
-    expect(local.gridColumns.split(' ').length).toBe(1)
+    expect(local.membersGridColumns).toBe(1)
   })
 
   test('captura hero desktop', async ({ page }) => {
