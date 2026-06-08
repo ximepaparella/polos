@@ -16,7 +16,7 @@
 }
 
 .publicacion-detalle__info {
-  padding: var(--space-10) var(--home-section-padding-inline) var(--space-16);
+  padding: 38px var(--home-section-padding-inline) 64px;
   background-color: var(--color-bg);
 }
 
@@ -25,7 +25,13 @@
   margin-inline: auto;
   display: flex;
   flex-direction: column;
-  gap: var(--space-4);
+  gap: 24px;
+}
+
+.publicacion-detalle__head {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .publicacion-detalle__title {
@@ -42,7 +48,7 @@
   font-size: var(--font-size-base);
   font-weight: 400;
   line-height: 1.5;
-  color: #06060d;
+  color: var(--color-text-ink);
   margin: 0;
 }
 
@@ -51,15 +57,30 @@
   font-size: var(--font-size-lg);
   font-weight: 400;
   line-height: 1.5;
-  color: #06060d;
+  color: var(--color-text-ink);
   margin: 0;
 }
 
 .publicacion-detalle__meta {
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
-  gap: var(--space-6);
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+.publicacion-detalle__meta-author {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.publicacion-detalle__avatar {
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: #d9d9d9;
 }
 
 .publicacion-detalle__tag {
@@ -67,33 +88,52 @@
   font-size: var(--font-size-xs);
   font-weight: 400;
   line-height: 1.4;
-  color: #06060d;
+  color: var(--color-text-ink);
   margin: 0;
 }
 
 .publicacion-detalle__date {
+  flex-shrink: 0;
   font-family: var(--font-nav);
   font-size: var(--font-size-xs);
   font-weight: 400;
   line-height: 1.4;
-  color: #06060d;
+  color: var(--color-text-muted);
+  text-align: right;
 }
 
 .publicacion-detalle__download {
-  align-self: flex-start;
-  margin-top: var(--space-2);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 50px;
+  padding: 12px 24px;
+  font-family: var(--font-nav);
+  font-size: var(--font-size-base);
+  font-weight: 500;
+  line-height: 1.5;
+  color: var(--color-text-light);
+  text-decoration: none;
+  background-color: #111111;
+  border-radius: var(--radius-btn);
+}
+
+.publicacion-detalle__download:hover {
+  background-color: var(--color-accent-hover);
+}
+
+.publicacion-detalle__download:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
 }
 
 .publicacion-nav {
-  padding: var(--space-8) var(--home-section-padding-inline) var(--space-16);
+  padding: 42px var(--home-section-padding-inline) 112px;
   background-color: var(--color-bg);
-  border-top: 1px solid var(--color-border);
 }
 
 .publicacion-nav__inner {
-  display: flex;
-  justify-content: space-between;
-  gap: var(--space-6);
   max-width: 864px;
   margin-inline: auto;
 }
@@ -102,7 +142,7 @@
   font-family: var(--font-nav);
   font-size: var(--font-size-lg);
   font-weight: 400;
-  line-height: 1.4;
+  line-height: 1.5;
   color: var(--color-text-primary);
   text-decoration: none;
 }
@@ -111,16 +151,12 @@
   color: var(--color-nav-link-hover);
 }
 
-.publicacion-nav__spacer {
-  flex: 1;
-}
-
 .publicacion-detalle__not-found {
   padding: var(--space-20) var(--home-section-padding-inline);
   text-align: center;
 }
 
-.publicacion-detalle__not-found h1 {
+.publicacion-detalle__not-found h2 {
   font-family: var(--font-nav);
   font-size: var(--font-size-section-title);
   font-weight: 400;
@@ -128,21 +164,41 @@
 }
 
 @media (max-width: 809px) {
-  .publicacion-detalle__cover,
+  .publicacion-detalle__cover {
+    padding-top: 32px;
+    padding-inline: var(--space-3);
+  }
+
   .publicacion-detalle__info,
   .publicacion-nav {
-    padding-inline: var(--space-6);
+    padding-inline: var(--space-3);
+  }
+
+  .publicacion-detalle__info {
+    padding-top: 38px;
+    padding-bottom: 48px;
   }
 
   .publicacion-detalle__title {
     font-size: 2.0625rem;
   }
 
-  .publicacion-detalle__cover-img {
-    height: 220px;
+  .publicacion-detalle__subtitle,
+  .publicacion-detalle__desc {
+    font-size: var(--font-size-base);
   }
 
-  .publicacion-nav__inner {
-    flex-direction: column;
+  .publicacion-detalle__cover-img {
+    height: 146px;
+  }
+
+  .publicacion-nav {
+    padding-bottom: 64px;
+  }
+}
+
+@media (min-width: 810px) and (max-width: 1439px) {
+  .publicacion-detalle__title {
+    font-size: 2.375rem;
   }
 }

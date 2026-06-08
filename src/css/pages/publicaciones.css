@@ -1,24 +1,48 @@
+/* Header / 44 / */
 .pub-hero {
-  padding: 112px var(--home-section-padding-inline) var(--space-20);
-  background-color: var(--color-bg);
+  padding: 112px var(--home-section-padding-inline);
+  background: radial-gradient(
+    167.405% 122.52% at 51.3889% 113.194%,
+    var(--color-divider-yellow) 0%,
+    var(--color-bg-muted) 28.2528%,
+    var(--color-bg-muted) 61.0577%,
+    var(--color-escuela-colage-blue) 100%
+  );
 }
 
 .pub-hero__inner {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--space-4);
-  max-width: 840px;
+  gap: var(--space-20);
+  max-width: 1920px;
   margin-inline: auto;
+}
+
+.pub-hero__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  width: 100%;
   text-align: center;
 }
 
-.pub-hero__breadcrumb,
+.pub-hero__copy {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 23px;
+  width: 100%;
+}
+
+.pub-hero__label,
 .pub-intro__label {
   font-family: var(--font-nav);
-  font-size: var(--font-size-base);
-  font-weight: 600;
-  line-height: 1.5;
+  font-size: var(--font-size-sm);
+  font-weight: 400;
+  line-height: 1.4;
+  letter-spacing: -0.02em;
   color: var(--color-text-primary);
   margin: 0;
 }
@@ -29,7 +53,7 @@
   font-weight: 500;
   line-height: 0.9;
   letter-spacing: -0.01em;
-  color: #06060d;
+  color: var(--color-text-ink);
   margin: 0;
 }
 
@@ -38,7 +62,7 @@
   font-size: var(--font-size-lg);
   font-weight: 400;
   line-height: 1.5;
-  color: #06060d;
+  color: var(--color-text-ink);
   margin: 0;
   max-width: 554px;
 }
@@ -48,21 +72,31 @@
   flex-wrap: wrap;
   justify-content: center;
   gap: var(--space-4);
-  margin-top: var(--space-4);
 }
 
-.pub-intro {
-  padding: var(--space-16) var(--home-section-padding-inline) var(--space-10);
-  background-color: var(--color-bg);
+/* Destacadas + grid */
+.pub-destacadas {
+  padding: 72px 0 112px;
+  background-color: var(--color-footer-bg);
 }
 
-.pub-intro__inner {
+.pub-destacadas__inner {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--space-3);
-  max-width: 1138px;
+  gap: var(--space-8);
+  max-width: 1312px;
   margin-inline: auto;
+  padding-inline: var(--home-section-padding-inline);
+}
+
+.pub-intro {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
+  width: 100%;
+  max-width: 1138px;
   text-align: center;
 }
 
@@ -80,27 +114,20 @@
   font-size: var(--font-size-lg);
   font-weight: 400;
   line-height: 1.5;
-  color: #06060d;
+  color: var(--color-text-ink);
   margin: 0;
-  max-width: 1138px;
-}
-
-.pub-grid-section {
-  padding: 0 var(--home-section-padding-inline) 112px;
-  background-color: var(--color-bg);
 }
 
 .publicaciones-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 404px));
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 26px;
-  max-width: 1312px;
-  margin-inline: auto;
+  width: 100%;
 }
 
-.publicaciones-grid__empty,
 .publicaciones-grid__error {
-  grid-column: 1 / -1;
+  width: 100%;
   font-family: var(--font-nav);
   font-size: var(--font-size-lg);
   line-height: 1.5;
@@ -110,32 +137,39 @@
 }
 
 @media (max-width: 809px) {
-  .pub-hero,
-  .pub-intro,
-  .pub-grid-section {
-    padding-inline: var(--space-6);
-  }
-
   .pub-hero {
-    padding-block: var(--space-16) var(--space-12);
+    padding: 72px var(--space-3) 32px;
   }
 
   .pub-hero__title {
-    font-size: 2rem;
-  }
-
-  .pub-intro__title {
     font-size: var(--font-size-3xl);
   }
 
+  .pub-destacadas {
+    padding: 72px 0 32px;
+  }
+
+  .pub-destacadas__inner {
+    gap: 30px;
+    padding-inline: var(--space-6);
+  }
+
+  .pub-intro__title {
+    font-size: 1.9375rem;
+  }
+
   .publicaciones-grid {
-    grid-template-columns: 1fr;
-    justify-items: center;
+    flex-direction: column;
+    align-items: center;
   }
 }
 
 @media (min-width: 810px) and (max-width: 1439px) {
   .pub-hero__title {
-    font-size: 3.5rem;
+    font-size: 3.625rem;
+  }
+
+  .pub-intro__title {
+    font-size: 2.375rem;
   }
 }

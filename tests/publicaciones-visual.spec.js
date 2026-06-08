@@ -15,7 +15,8 @@ async function getPageMetrics(page, useLocal = false) {
         fontSize: s.fontSize,
         fontWeight: s.fontWeight,
         textAlign: s.textAlign,
-        gridTemplateColumns: s.gridTemplateColumns,
+        backgroundImage: s.backgroundImage,
+        backgroundColor: s.backgroundColor,
       }
     }
 
@@ -33,20 +34,26 @@ async function getPageMetrics(page, useLocal = false) {
       ? document.querySelector('.card-publicacion__title')
       : [...document.querySelectorAll('h4')].find((el) => el.textContent?.trim() === 'WITZ')
 
+    const hero = isLocal ? document.querySelector('.pub-hero') : null
+    const destacadas = isLocal ? document.querySelector('.pub-destacadas') : null
     const grid = isLocal ? document.querySelector('.publicaciones-grid') : null
 
     return {
       h1: read(h1),
       introTitle: read(introTitle),
       cardTitle: read(cardTitle),
-      gridColumns: grid ? read(grid).gridTemplateColumns.split(' ').length : 0,
+      heroHasGradient: hero ? hero.style.backgroundImage !== '' || read(hero).backgroundImage.includes('gradient') : false,
+      destacadasBg: destacadas ? read(destacadas).backgroundColor : null,
+      gridDirection: grid ? getComputedStyle(grid).flexDirection : null,
+      hasSearch: isLocal ? Boolean(document.querySelector('.pub-destacadas__search')) : false,
+      introTitleTag: isLocal ? introTitle?.tagName : null,
       pubCount: isLocal
         ? document.querySelectorAll('.card-publicacion').length
-        : [...document.querySelectorAll('img')].filter(
+        : [...document.querySelectorAll('h4')].filter(
             (el) =>
-              el.getBoundingClientRect().top > 900 &&
-              el.getBoundingClientRect().top < 1500 &&
-              el.getBoundingClientRect().width > 400
+              el.getBoundingClientRect().top > 700 &&
+              el.getBoundingClientRect().top < 1200 &&
+              !el.textContent?.includes('@')
           ).length,
       hasHeroCtas: isLocal
         ? document.querySelectorAll('.pub-hero__ctas .btn').length
@@ -78,7 +85,11 @@ test.describe('SPEC-021 publicaciones — review vs producción', () => {
     expect(local.h1.textAlign).toBe('center')
     expect(local.introTitle.fontSize).toBe('48px')
     expect(local.cardTitle.fontSize).toBe('26px')
-    expect(local.gridColumns).toBe(2)
+    expect(local.heroHasGradient).toBe(true)
+    expect(local.destacadasBg).toBe('rgb(242, 242, 242)')
+    expect(local.gridDirection).toBe('row')
+    expect(local.hasSearch).toBe(false)
+    expect(local.introTitleTag).toBe('P')
     expect(local.pubCount).toBe(2)
     expect(local.hasHeroCtas).toBe(2)
   })
@@ -95,7 +106,8 @@ test.describe('SPEC-021 publicaciones — review vs producción', () => {
 
     const local = await getPageMetrics(page, true)
     expect(local.h1.fontSize).toBe('32px')
-    expect(local.gridColumns).toBe(1)
+    expect(local.introTitle.fontSize).toBe('31px')
+    expect(local.gridDirection).toBe('column')
   })
 
   test('captura hero desktop', async ({ page }) => {

@@ -56,10 +56,15 @@ async function getPageMetrics(page, useLocal = false) {
           el.textContent?.startsWith('Abínzano')
         )
 
+    const equipoLabel = isLocal
+      ? document.querySelector('.polos-miembros__label')
+      : [...document.querySelectorAll('p')].find((el) => el.textContent?.trim() === 'Equipo')
+
     return {
       hero: read(hero),
       title: read(title),
       subtitle: read(subtitle),
+      equipoLabel: read(equipoLabel),
       miembrosTitle: read(miembrosTitle),
       poloName: read(poloNames[0]),
       member: read(memberSample),
@@ -68,6 +73,10 @@ async function getPageMetrics(page, useLocal = false) {
         ? document.querySelectorAll('.polos-polo__members p').length
         : 0,
       columnCount: isLocal ? document.querySelectorAll('.polos-columns__col').length : 0,
+      logoCount: isLocal ? document.querySelectorAll('.polos-hero__logos-track img').length : 0,
+      hasErroneousSubtitle: isLocal
+        ? Boolean(document.querySelector('.polos-miembros__subtitle'))
+        : false,
       gridColumns: isLocal
         ? getComputedStyle(document.querySelector('.polos-columns')).gridTemplateColumns
         : null,
@@ -101,6 +110,9 @@ test.describe('SPEC-012 los-polos — review vs producción', () => {
     expect(local.poloCount).toBe(6)
     expect(local.memberCount).toBe(136)
     expect(local.columnCount).toBe(3)
+    expect(local.equipoLabel.fontSize).toBe('14px')
+    expect(local.logoCount).toBe(12)
+    expect(local.hasErroneousSubtitle).toBe(false)
   })
 
   test('métricas mobile alineadas a producción', async ({ page }) => {

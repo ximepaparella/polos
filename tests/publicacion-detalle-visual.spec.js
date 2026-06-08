@@ -18,7 +18,7 @@ async function getPageMetrics(page, useLocal = false) {
 
     const title = isLocal
       ? document.querySelector('.publicacion-detalle__title')
-      : document.querySelector('h2')
+      : [...document.querySelectorAll('h2')].find((el) => el.textContent?.includes('WITZ'))
 
     const subtitle = isLocal
       ? document.querySelector('.publicacion-detalle__subtitle')
@@ -33,10 +33,22 @@ async function getPageMetrics(page, useLocal = false) {
       el.textContent?.includes('Descargar Publicación')
     )
 
+    const downloadBtn = isLocal
+      ? document.querySelector('.publicacion-detalle__download')
+      : download
+
     return {
       title: read(title),
+      titleTag: isLocal ? title?.tagName : null,
       subtitle: read(subtitle),
       hasDownload: Boolean(download),
+      downloadWidth: downloadBtn
+        ? Math.round(downloadBtn.getBoundingClientRect().width)
+        : null,
+      hasAvatar: isLocal ? Boolean(document.querySelector('.publicacion-detalle__avatar')) : false,
+      dateColor: isLocal
+        ? getComputedStyle(document.querySelector('.publicacion-detalle__date'))?.color
+        : null,
       hasFlipbookControls: Boolean(document.getElementById('flipbook-controls')),
       hasNav: Boolean(document.querySelector('.publicacion-nav__link')),
       coverHeight: isLocal
@@ -65,8 +77,12 @@ test.describe('SPEC-022/023 publicacion-detalle — review vs producción', () =
 
     const local = await getPageMetrics(page, true)
     expect(local.title.fontSize).toBe('52px')
+    expect(local.titleTag).toBe('H2')
     expect(local.subtitle.fontSize).toBe('16px')
     expect(local.hasDownload).toBe(true)
+    expect(local.downloadWidth).toBeGreaterThan(800)
+    expect(local.hasAvatar).toBe(true)
+    expect(local.dateColor).toBe('rgb(136, 136, 136)')
     expect(local.hasFlipbookControls).toBe(true)
     expect(local.hasNav).toBe(true)
     expect(local.coverHeight).toBe('314px')

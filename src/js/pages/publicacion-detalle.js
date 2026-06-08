@@ -41,12 +41,28 @@ function updateMeta(publicacion) {
   }
 }
 
-function renderTags(publicacion) {
-  const tags = publicacion.tags ?? (publicacion.subtitulo ? [publicacion.subtitulo] : [])
+function formatSubtitle(publicacion) {
+  const { subtitulo = '', issn } = publicacion
 
-  return tags
-    .map((tag) => `<p class="publicacion-detalle__tag">${escapeHtml(tag)}</p>`)
-    .join('')
+  if (!subtitulo) {
+    return ''
+  }
+
+  if (!issn) {
+    return subtitulo
+  }
+
+  return `${subtitulo}. ${issn}`
+}
+
+function getMetaLabel(publicacion) {
+  const [firstTag] = publicacion.tags ?? []
+
+  if (firstTag) {
+    return firstTag
+  }
+
+  return formatSubtitle(publicacion)
 }
 
 function getFlipbookSize() {
@@ -75,7 +91,7 @@ export async function renderDetalle(slug) {
   if (!publicacion) {
     main.innerHTML = `
       <div class="publicacion-detalle__not-found">
-        <h1>Publicación no encontrada</h1>
+        <h2>Publicación no encontrada</h2>
         <a href="/publicaciones-facl" class="btn btn-primary">Volver a publicaciones</a>
       </div>
     `
@@ -90,7 +106,9 @@ export async function renderDetalle(slug) {
     adyacentes = getPublicacionesAdyacentesFallback(slug, publicacion.fecha)
   }
 
-  const { prev, next } = adyacentes
+  const { prev } = adyacentes
+  const subtitle = formatSubtitle(publicacion)
+  const metaLabel = getMetaLabel(publicacion)
 
   main.innerHTML = `
     <article class="publicacion-detalle">
@@ -110,22 +128,29 @@ export async function renderDetalle(slug) {
 
       <section class="publicacion-detalle__info" aria-label="Información de la publicación">
         <div class="publicacion-detalle__info-inner">
-          <h1 class="publicacion-detalle__title">${escapeHtml(publicacion.titulo)}</h1>
-          ${publicacion.subtitulo ? `<p class="publicacion-detalle__subtitle">${escapeHtml(publicacion.subtitulo)}</p>` : ''}
+          <div class="publicacion-detalle__head">
+            <h2 class="publicacion-detalle__title">${escapeHtml(publicacion.titulo)}</h2>
+            ${subtitle ? `<h6 class="publicacion-detalle__subtitle">${escapeHtml(subtitle)}</h6>` : ''}
+          </div>
+
           ${publicacion.descripcion ? `<p class="publicacion-detalle__desc">${escapeHtml(publicacion.descripcion)}</p>` : ''}
+
           <div class="publicacion-detalle__meta">
-            ${renderTags(publicacion)}
+            <div class="publicacion-detalle__meta-author">
+              <span class="publicacion-detalle__avatar" aria-hidden="true"></span>
+              ${metaLabel ? `<p class="publicacion-detalle__tag">${escapeHtml(metaLabel)}</p>` : ''}
+            </div>
             <time class="publicacion-detalle__date" datetime="${escapeHtml(publicacion.fecha)}">${escapeHtml(formatFecha(publicacion.fecha))}</time>
           </div>
+
           ${publicacion.pdf_url
-            ? `<a href="${escapeHtml(publicacion.pdf_url)}" class="btn btn-primary publicacion-detalle__download" download target="_blank" rel="noopener noreferrer">Descargar Publicación</a>`
+            ? `<a href="${escapeHtml(publicacion.pdf_url)}" class="publicacion-detalle__download" download target="_blank" rel="noopener noreferrer">Descargar Publicación</a>`
             : ''}
         </div>
       </section>
 
       <section class="flipbook-section" aria-label="Visor de revista">
         <div class="flipbook-section__inner">
-          <h2 class="flipbook-section__title">Leer publicación</h2>
           <div id="flipbook-wrapper"></div>
           <div class="flipbook-controls" id="flipbook-controls">
             <button type="button" id="btn-prev" class="btn btn-secondary" aria-label="Página anterior">← Anterior</button>
@@ -136,16 +161,15 @@ export async function renderDetalle(slug) {
         </div>
       </section>
 
-      <nav class="publicacion-nav" aria-label="Otras publicaciones">
-        <div class="publicacion-nav__inner">
-          ${prev
-            ? `<a href="/publicaciones-facl?slug=${encodeURIComponent(prev.slug)}" class="publicacion-nav__link">‹ ${escapeHtml(prev.titulo)}</a>`
-            : '<span class="publicacion-nav__spacer" aria-hidden="true"></span>'}
-          ${next
-            ? `<a href="/publicaciones-facl?slug=${encodeURIComponent(next.slug)}" class="publicacion-nav__link">${escapeHtml(next.titulo)} ›</a>`
-            : ''}
-        </div>
-      </nav>
+      ${prev
+        ? `
+          <nav class="publicacion-nav" aria-label="Publicación anterior">
+            <div class="publicacion-nav__inner">
+              <a href="/publicaciones-facl?slug=${encodeURIComponent(prev.slug)}" class="publicacion-nav__link">‹ ${escapeHtml(prev.titulo)}</a>
+            </div>
+          </nav>
+        `
+        : ''}
     </article>
   `
 

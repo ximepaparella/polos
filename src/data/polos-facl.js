@@ -171,6 +171,49 @@ export const POLOS_PAGE = {
   ],
 }
 
+/** Logos del carrusel del hero (medidos en producción). */
+export const POLOS_LOGOS = [
+  {
+    src: '/assets/images/polos/polo-logo-cuyo.svg',
+    alt: 'Polo Nuevo Cuyo',
+    width: 128,
+    height: 40,
+    href: 'https://www.instagram.com/foronuevocuyolacaniano',
+  },
+  {
+    src: '/assets/images/polos/polo-logo-patagonia.svg',
+    alt: 'Polo Patagonia',
+    width: 120,
+    height: 38,
+  },
+  {
+    src: '/assets/images/polos/polo-logo-noa.svg',
+    alt: 'Polo NOA',
+    width: 91,
+    height: 40,
+  },
+  {
+    src: '/assets/images/polos/polo-logo-mediterraneo.svg',
+    alt: 'Polo Mediterráneo',
+    width: 136,
+    height: 38,
+    href: 'https://www.instagram.com/foromediterraneo',
+  },
+  {
+    src: '/assets/images/polos/polo-logo-salta.svg',
+    alt: 'Polo Salta',
+    width: 92,
+    height: 40,
+    href: 'https://www.instagram.com/foroarg_polosalta',
+  },
+  {
+    src: '/assets/images/polos/polo-logo-bsas.svg',
+    alt: 'Polo Buenos Aires',
+    width: 134,
+    height: 38,
+  },
+]
+
 /** Distribución en 3 columnas medida en producción (left: 64 / 557 / 918). */
 export const POLOS_COLUMNS = [
   ['Polo Buenos Aires'],

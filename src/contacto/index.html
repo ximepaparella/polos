@@ -21,9 +21,22 @@
   <main>
     <section class="contacto-main" aria-label="Contacto">
       <div class="contacto-main__inner">
-        <h1 class="contacto-main__title">Contacto</h1>
-        <p class="contacto-main__intro">Envíanos un correo a nuestra dirección oficial.</p>
-        <a class="contacto-main__email" href="mailto:foroargcl@gmail.com">foroargcl@gmail.com</a>
+        <div class="contacto-main__header">
+          <img
+            class="contacto-main__mark"
+            src="/assets/images/contacto-mark.svg"
+            alt=""
+            aria-hidden="true"
+            width="72"
+            height="75"
+            decoding="async"
+          >
+          <div class="contacto-main__copy">
+            <h2 class="contacto-main__title">Contacto</h2>
+            <p class="contacto-main__intro">Envíanos un correo a nuestra dirección oficial.</p>
+            <a class="contacto-main__email" href="mailto:foroargcl@gmail.com">foroargcl@gmail.com</a>
+          </div>
+        </div>
 
         <form
           class="contacto-form"
@@ -41,50 +54,76 @@
 
           <div class="form__group">
             <label for="nombre">Nombre</label>
-            <input type="text" id="nombre" name="nombre" required placeholder="Tu nombre" autocomplete="name">
+            <input
+              type="text"
+              id="nombre"
+              name="nombre"
+              required
+              placeholder="Juan Pérez"
+              autocomplete="name"
+            >
           </div>
 
           <div class="form__group">
             <label for="email">Email</label>
-            <input type="email" id="email" name="email" required placeholder="tu@email.com" autocomplete="email">
+            <input
+              type="email"
+              id="email"
+              name="email"
+              required
+              placeholder="juan@gmail.com"
+              autocomplete="email"
+            >
           </div>
 
-          <button type="submit" class="btn btn-primary contacto-form__submit" id="form-submit">Enviar</button>
+          <button type="submit" class="btn contacto-form__submit" id="form-submit">Enviar</button>
           <div id="form-message" role="alert" aria-live="polite"></div>
         </form>
       </div>
     </section>
 
+    <div class="contacto-wave" aria-hidden="true">
+      <img
+        src="/assets/images/contacto-section-wave.svg"
+        alt=""
+        width="1440"
+        height="18"
+        decoding="async"
+      >
+    </div>
+
     <section class="contacto-ubicaciones" aria-label="Ubicaciones de los Polos">
       <div class="contacto-ubicaciones__inner">
-        <p class="contacto-ubicaciones__label">El Foro en la Argentina</p>
-        <h2 class="contacto-ubicaciones__title">Ubicaciones</h2>
-        <p class="contacto-ubicaciones__subtitle">Descubre nuestros Polos en diferentes regiones.</p>
+        <div class="contacto-ubicaciones__header">
+          <p class="contacto-ubicaciones__label">El Foro en la Argentina</p>
+          <h2 class="contacto-ubicaciones__title">Ubicaciones</h2>
+          <p class="contacto-ubicaciones__subtitle">Descubre nuestros Polos en diferentes regiones.</p>
+        </div>
 
         <div class="contacto-ubicaciones__grid">
-          <ul class="contacto-ubicaciones__list" aria-label="Contacto por polo">
-            <li class="contacto-polo">
-              <h3 class="contacto-polo__name">Polo Buenos Aires</h3>
+          <ul class="contacto-ubicaciones__list" id="contacto-polos-list" aria-label="Contacto por polo">
+            <li class="contacto-polo contacto-polo--active">
+              <h4 class="contacto-polo__name">Polo Buenos Aires</h4>
               <a class="contacto-polo__email" href="mailto:secretariafarp@gmail.com">secretariafarp@gmail.com</a>
             </li>
             <li class="contacto-polo">
-              <h3 class="contacto-polo__name">Polo Mediterráneo</h3>
+              <h4 class="contacto-polo__name">Polo Mediterráneo</h4>
               <a class="contacto-polo__email" href="mailto:foromediterraneo2014@gmail.com">foromediterraneo2014@gmail.com</a>
             </li>
             <li class="contacto-polo">
-              <h3 class="contacto-polo__name">Polo Patagonia</h3>
+              <h4 class="contacto-polo__name">Polo Patagonia</h4>
               <a class="contacto-polo__email" href="mailto:foropatcl@gmail.com">foropatcl@gmail.com</a>
             </li>
             <li class="contacto-polo">
-              <h3 class="contacto-polo__name">Polo Salta</h3>
+              <h4 class="contacto-polo__name">Polo Salta</h4>
               <a class="contacto-polo__email" href="mailto:forosalta.cl@gmail.com">forosalta.cl@gmail.com</a>
             </li>
             <li class="contacto-polo">
-              <h3 class="contacto-polo__name">Polo NOA</h3>
+              <h4 class="contacto-polo__name">Polo NOA</h4>
               <a class="contacto-polo__email" href="mailto:info@epfcl-tucuman.com.ar">info@epfcl-tucuman.com.ar</a>
             </li>
             <li class="contacto-polo">
-              <h3 class="contacto-polo__name">Polo Nuevo Cuyo</h3>
+              <h4 class="contacto-polo__name">Polo Nuevo Cuyo</h4>
               <a class="contacto-polo__email" href="mailto:foronuevocuyolacaniano@gmail.com">foronuevocuyolacaniano@gmail.com</a>
             </li>
           </ul>

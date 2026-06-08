@@ -23,6 +23,12 @@ export class Flipbook {
       useMouseEvents: true,
       ...options,
     }
+
+    this.handleDisplayChange = () => {
+      requestAnimationFrame(() => {
+        this.enhanceCanvasResolution()
+      })
+    }
   }
 
   async init() {
@@ -53,20 +59,53 @@ export class Flipbook {
     }
   }
 
+  getEstimatedBookWidth() {
+    const sectionInner = this.container?.closest('.flipbook-section__inner')
+    const containerWidth = sectionInner?.clientWidth || this.container?.clientWidth
+
+    if (containerWidth) {
+      return Math.min(this.options.maxWidth, containerWidth)
+    }
+
+    return Math.min(this.options.maxWidth, Math.max(this.options.width, window.innerWidth - 80))
+  }
+
+  getPdfRenderScale(page) {
+    const pixelRatio = Math.min(window.devicePixelRatio || 1, 2.5)
+    const baseViewport = page.getViewport({ scale: 1 })
+    const bookWidth = this.getEstimatedBookWidth()
+    const pageDisplayWidth = bookWidth / 2
+    const pageDisplayHeight = pageDisplayWidth * (this.options.height / this.options.width)
+    const margin = 1.2
+
+    const targetWidth = pageDisplayWidth * pixelRatio * margin
+    const targetHeight = pageDisplayHeight * pixelRatio * margin
+
+    const scaleX = targetWidth / baseViewport.width
+    const scaleY = targetHeight / baseViewport.height
+
+    return Math.min(Math.max(scaleX, scaleY, 1.5), 4)
+  }
+
   async renderPage(pdf, pageNum) {
     const page = await pdf.getPage(pageNum)
-    const viewport = page.getViewport({ scale: 1.5 })
+    const scale = this.getPdfRenderScale(page)
+    const viewport = page.getViewport({ scale })
     const canvas = document.createElement('canvas')
+    const context = canvas.getContext('2d')
 
     canvas.width = viewport.width
     canvas.height = viewport.height
 
+    context.imageSmoothingEnabled = true
+    context.imageSmoothingQuality = 'high'
+
     await page.render({
-      canvasContext: canvas.getContext('2d'),
+      canvasContext: context,
       viewport,
     }).promise
 
-    return canvas.toDataURL('image/jpeg', 0.85)
+    return canvas.toDataURL('image/jpeg', 0.95)
   }
 
   initPageFlip(images) {
@@ -76,11 +115,67 @@ export class Flipbook {
     this.container.appendChild(flipContainer)
 
     this.pageFlip = new PageFlip(flipContainer, this.options)
+    this.pageFlip.on('init', () => {
+      this.patchCanvasUpdate()
+      requestAnimationFrame(() => {
+        this.enhanceCanvasResolution()
+      })
+    })
     this.pageFlip.loadFromImages(images)
+    this.patchCanvasUpdate()
+
+    window.addEventListener('resize', this.handleDisplayChange)
+    document.addEventListener('fullscreenchange', this.handleDisplayChange)
 
     this.pageFlip.on('flip', (event) => {
       this.updatePageCounter(event.data + 1)
     })
+  }
+
+  patchCanvasUpdate() {
+    const ui = this.pageFlip?.getUI()
+
+    if (!ui || ui._canvasDpiPatched) {
+      return
+    }
+
+    const originalUpdate = ui.update.bind(ui)
+    ui.update = () => {
+      originalUpdate()
+      this.enhanceCanvasResolution()
+    }
+    ui._canvasDpiPatched = true
+  }
+
+  enhanceCanvasResolution() {
+    const canvas = this.container?.querySelector('.stf__canvas')
+
+    if (!canvas || !this.pageFlip) {
+      return
+    }
+
+    const pixelRatio = Math.min(window.devicePixelRatio || 1, 2.5)
+    const displayWidth = canvas.clientWidth
+    const displayHeight = canvas.clientHeight
+
+    if (!displayWidth || !displayHeight) {
+      return
+    }
+
+    const targetWidth = Math.floor(displayWidth * pixelRatio)
+    const targetHeight = Math.floor(displayHeight * pixelRatio)
+
+    if (canvas.width === targetWidth && canvas.height === targetHeight) {
+      return
+    }
+
+    canvas.width = targetWidth
+    canvas.height = targetHeight
+
+    const context = canvas.getContext('2d')
+    context.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0)
+
+    this.pageFlip.getRender().update()
   }
 
   initControls() {
@@ -98,8 +193,15 @@ export class Flipbook {
       this.pageFlip?.flipNext()
     })
 
-    document.getElementById('btn-fullscreen')?.addEventListener('click', () => {
-      this.container?.requestFullscreen?.()
+    document.getElementById('btn-fullscreen')?.addEventListener('click', async () => {
+      const target = this.container?.closest('.flipbook-section') || this.container
+
+      if (document.fullscreenElement) {
+        await document.exitFullscreen()
+        return
+      }
+
+      await target?.requestFullscreen?.()
     })
 
     this.updatePageCounter(1)

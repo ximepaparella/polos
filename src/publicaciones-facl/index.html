@@ -25,35 +25,43 @@
   <main id="publicaciones-main">
     <section class="pub-hero" aria-label="Publicaciones IF - EPFCL ALS">
       <div class="pub-hero__inner">
-        <p class="pub-hero__breadcrumb">Publicaciones</p>
-        <h1 class="pub-hero__title">PUBLICACIONES IF - EPFCL ALS</h1>
-        <p class="pub-hero__text">
-          Las publicaciones son esenciales para compartir conocimientos y fomentar el debate en el campo lacaniano.
-        </p>
+        <div class="pub-hero__content">
+          <p class="pub-hero__label">Publicaciones</p>
+          <div class="pub-hero__copy">
+            <h1 class="pub-hero__title">PUBLICACIONES IF - EPFCL ALS</h1>
+            <p class="pub-hero__text">
+              Las publicaciones son esenciales para compartir conocimientos y fomentar el debate en el campo lacaniano.
+            </p>
+          </div>
+        </div>
         <div class="pub-hero__ctas">
-          <a href="#publicaciones-grid" class="btn btn-primary">Ver publicaciones</a>
+          <a href="#publicaciones-destacadas" class="btn btn-primary">Ver publicaciones</a>
           <a href="/sobre-el-foro" class="btn btn-secondary">Sobre el foro</a>
         </div>
       </div>
     </section>
 
-    <section class="pub-intro" aria-label="Publicaciones destacadas">
-      <div class="pub-intro__inner">
-        <p class="pub-intro__label">Publicaciones</p>
-        <h2 class="pub-intro__title">Explora nuestras publicaciones destacadas</h2>
-        <p class="pub-intro__text">
-          En esta sección, encontrarás una selección de publicaciones relevantes de la Internacional de los Foros del Campo Lacaniano y la EPFCL América Latina Sur.
-        </p>
-      </div>
-    </section>
+    <section
+      class="pub-destacadas"
+      id="publicaciones-destacadas"
+      aria-label="Publicaciones destacadas"
+    >
+      <div class="pub-destacadas__inner">
+        <div class="pub-intro">
+          <p class="pub-intro__label">Publicaciones</p>
+          <p class="pub-intro__title">Explora nuestras publicaciones destacadas</p>
+          <p class="pub-intro__text">
+            En esta sección, encontrarás una selección de publicaciones relevantes de la Internacional de los Foros del Campo Lacaniano y la EPFCL América Latina Sur.
+          </p>
+        </div>
 
-    <section class="pub-grid-section" aria-label="Listado de publicaciones">
-      <div
-        class="publicaciones-grid"
-        id="publicaciones-grid"
-        aria-live="polite"
-        aria-busy="true"
-      ></div>
+        <div
+          class="publicaciones-grid"
+          id="publicaciones-grid"
+          aria-live="polite"
+          aria-busy="true"
+        ></div>
+      </div>
     </section>
   </main>
 

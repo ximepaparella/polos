@@ -1,21 +1,17 @@
 .flipbook-section {
-  padding: var(--space-16) var(--home-section-padding-inline) var(--space-20);
+  width: 100%;
+  padding: 64px var(--home-section-padding-inline) 80px;
   background-color: var(--color-bg-alt);
 }
 
 .flipbook-section__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-8);
+  width: 100%;
   max-width: 864px;
   margin-inline: auto;
-}
-
-.flipbook-section__title {
-  font-family: var(--font-nav);
-  font-size: var(--font-size-3xl);
-  font-weight: 400;
-  line-height: 1.2;
-  color: var(--color-text-primary);
-  margin: 0 0 var(--space-8);
-  text-align: center;
 }
 
 #flipbook-wrapper {
@@ -64,7 +60,7 @@
   justify-content: center;
   flex-wrap: wrap;
   gap: var(--space-4);
-  margin-top: var(--space-8);
+  width: 100%;
 }
 
 #page-counter {
@@ -79,13 +75,17 @@
   }
 }
 
+.flipbook-section:fullscreen {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-8);
+  background-color: var(--color-bg-alt);
+}
+
 @media (max-width: 809px) {
   .flipbook-section {
-    padding-inline: var(--space-6);
+    padding: 48px var(--space-3) 64px;
   }
 
-  #flip-container {
-    transform: scale(0.85);
-    transform-origin: top center;
-  }
 }

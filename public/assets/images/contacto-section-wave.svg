@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="18" viewBox="0 0 1440 18" fill="none" preserveAspectRatio="none" aria-hidden="true">
+  <path d="M1440 17.9388L1440 9.03402L-2.57454e-06 9.0341L0 17.9389L1440 17.9388Z" fill="url(#contacto-wave-paint0)"/>
+  <path d="M0 0.938782L9.4535e-07 9.03392L170.644 9.03392L170.644 0.938779L0 0.938782Z" fill="url(#contacto-wave-paint1)"/>
+  <path d="M496.964 0.938782L496.964 9.03392L642.161 9.03392L642.161 0.938779L496.964 0.938782Z" fill="url(#contacto-wave-paint2)"/>
+  <path d="M1246.15 0.938782L1246.15 9.03392L1440 9.03392L1440 0.938779L1246.15 0.938782Z" fill="url(#contacto-wave-paint3)"/>
+  <path d="M1024.62 0.938782L1024.62 9.03392L1246.15 9.03392L1246.15 0.938778L1024.62 0.938782Z" fill="url(#contacto-wave-paint4)"/>
+  <rect width="8.09514" height="326.32" transform="matrix(1.1678e-07 1 1 -1.63614e-08 170.645 0.938782)" fill="url(#contacto-wave-paint5)"/>
+  <path d="M631.684 0.938782L631.684 9.03393L1031.35 9.03392L1031.35 0.938775L631.684 0.938782Z" fill="url(#contacto-wave-paint6)"/>
+  <defs>
+    <linearGradient id="contacto-wave-paint0" x1="575.733" y1="13.4864" x2="1477.4" y2="13.4864" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFE563"/>
+      <stop offset="0.46" stop-color="#EEEEEE"/>
+      <stop offset="1" stop-color="#B7EFF3"/>
+    </linearGradient>
+    <linearGradient id="contacto-wave-paint1" x1="154.647" y1="4.98635" x2="44.6609" y2="4.98636" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFE563"/>
+      <stop offset="0.46" stop-color="#EEEEEE"/>
+      <stop offset="1" stop-color="#B7DDF3"/>
+    </linearGradient>
+    <linearGradient id="contacto-wave-paint2" x1="628.549" y1="4.98635" x2="534.965" y2="4.98636" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFE563"/>
+      <stop offset="0.46" stop-color="#EEEEEE"/>
+      <stop offset="1" stop-color="#B7DDF3"/>
+    </linearGradient>
+    <linearGradient id="contacto-wave-paint3" x1="1421.83" y1="4.98635" x2="1296.89" y2="4.98636" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFE563"/>
+      <stop offset="0.46" stop-color="#EEEEEE"/>
+      <stop offset="1" stop-color="#B7DDF3"/>
+    </linearGradient>
+    <linearGradient id="contacto-wave-paint4" x1="1225.38" y1="4.98635" x2="1082.6" y2="4.98637" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFE563"/>
+      <stop offset="0.46" stop-color="#EEEEEE"/>
+      <stop offset="1" stop-color="#B7DDF3"/>
+    </linearGradient>
+    <linearGradient id="contacto-wave-paint5" x1="4.04757" y1="295.728" x2="4.04757" y2="85.4041" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFE563"/>
+      <stop offset="0.46" stop-color="#EEEEEE"/>
+      <stop offset="1" stop-color="#B7DDF3"/>
+    </linearGradient>
+    <linearGradient id="contacto-wave-paint6" x1="993.882" y1="4.98635" x2="736.284" y2="4.98638" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFE563"/>
+      <stop offset="0.46" stop-color="#EEEEEE"/>
+      <stop offset="1" stop-color="#B7DDF3"/>
+    </linearGradient>
+  </defs>
+</svg>

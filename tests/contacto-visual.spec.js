@@ -28,8 +28,8 @@ async function getPageMetrics(page, useLocal = false) {
       : [...document.querySelectorAll('h2')].find((el) => el.textContent?.trim() === 'Ubicaciones')
 
     const poloName = isLocal
-      ? document.querySelector('.contacto-polo__name')
-      : [...document.querySelectorAll('h4')].find((el) => el.textContent === 'Polo Buenos Aires')
+      ? document.querySelector('.contacto-polo--active .contacto-polo__name')
+      : [...document.querySelectorAll('h4')].find((el) => el.textContent?.includes('Polo Buenos Aires'))
 
     const poloEmail = isLocal
       ? document.querySelector('.contacto-polo__email')
@@ -53,6 +53,8 @@ async function getPageMetrics(page, useLocal = false) {
             el.textContent?.includes('Ubicaciones')
         )
 
+    const activePolo = isLocal ? document.querySelector('.contacto-polo--active') : null
+
     return {
       title: read(title),
       ubicTitle: read(ubicTitle),
@@ -60,6 +62,12 @@ async function getPageMetrics(page, useLocal = false) {
       poloEmail: read(poloEmail),
       mainSection: read(mainSection),
       ubicSection: read(ubicSection),
+      hasMark: isLocal ? Boolean(document.querySelector('.contacto-main__mark')) : false,
+      hasWave: isLocal ? Boolean(document.querySelector('.contacto-wave')) : false,
+      activePoloBg: activePolo ? read(activePolo).backgroundColor : null,
+      submitBg: isLocal
+        ? read(document.querySelector('.contacto-form__submit'))?.backgroundColor
+        : null,
       poloCount: isLocal
         ? document.querySelectorAll('.contacto-polo').length
         : [...document.querySelectorAll('h4')].filter((el) =>
@@ -98,11 +106,16 @@ test.describe('SPEC-014 contacto — review vs producción', () => {
     const local = await getPageMetrics(page, true)
     expect(local.mainSection.padding).toBe('132px 64px 189px')
     expect(local.ubicSection.padding).toBe('112px 64px')
+    expect(local.ubicSection.backgroundColor).toBe('rgb(210, 236, 251)')
     expect(local.title.fontSize).toBe('52px')
     expect(local.ubicTitle.fontSize).toBe('52px')
     expect(local.poloName.fontSize).toBe('22px')
     expect(local.poloEmail.fontSize).toBe('18px')
     expect(local.poloCount).toBe(6)
+    expect(local.hasMark).toBe(true)
+    expect(local.hasWave).toBe(true)
+    expect(local.activePoloBg).toBe('rgb(255, 255, 255)')
+    expect(local.submitBg).toBe('rgb(51, 51, 51)')
     expect(local.officialEmailHref).toBe('mailto:foroargcl@gmail.com')
   })
 

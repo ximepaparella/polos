@@ -38,14 +38,9 @@ async function getPageMetrics(page, useLocal = false) {
             el.getBoundingClientRect().height > 500
         )
 
-    const colagePanel = isLocal
-      ? document.querySelector('.escuela-colage')
-      : [...document.querySelectorAll('div')].find(
-          (el) =>
-            getComputedStyle(el).backgroundColor === 'rgb(242, 242, 242)' &&
-            el.textContent?.includes('COLAGE') &&
-            el.getBoundingClientRect().height > 500
-        )
+    const acercaPanel = isLocal ? document.querySelector('.escuela-acerca') : null
+    const alcancePanel = isLocal ? document.querySelector('.escuela-alcance') : null
+    const colageBlock = isLocal ? document.querySelector('.escuela-colage-block') : null
 
     const ctaTitle = isLocal
       ? document.querySelector('.escuela-publicaciones-cta__title')
@@ -53,11 +48,23 @@ async function getPageMetrics(page, useLocal = false) {
           el.textContent?.includes('LEÉ NUESTRAS PUBLICACIONES')
         )
 
+    const waveCount = isLocal
+      ? document.querySelectorAll('.escuela-colage-block__wave').length
+      : 0
+
+    const heroIcon = isLocal ? document.querySelector('.escuela-hero__icon') : null
+
     return {
       h1: read(h1),
       acercaTitle: read(acercaTitle),
       objetivoPanel: read(objetivoPanel),
-      colagePanel: read(colagePanel),
+      acercaHasGradient: acercaPanel
+        ? getComputedStyle(acercaPanel).backgroundImage.includes('gradient')
+        : false,
+      alcanceHasGradient: alcancePanel
+        ? getComputedStyle(alcancePanel).backgroundImage.includes('gradient')
+        : false,
+      colageBlockBg: colageBlock ? getComputedStyle(colageBlock).backgroundColor : null,
       ctaTitle: read(ctaTitle),
       imageCount: isLocal
         ? document.querySelectorAll('.escuela-objetivo__image, .escuela-colage__image').length
@@ -67,6 +74,14 @@ async function getPageMetrics(page, useLocal = false) {
         : 0,
       principiosHref: isLocal
         ? document.querySelector('.escuela-hero__cta')?.getAttribute('href')
+        : null,
+      waveCount,
+      heroIconWidth: heroIcon ? Math.round(heroIcon.getBoundingClientRect().width) : null,
+      alcanceTitleTag: isLocal
+        ? document.querySelector('.escuela-alcance__title')?.tagName
+        : null,
+      acercaTag: isLocal
+        ? document.querySelector('.escuela-acerca__title')?.tagName
         : null,
     }
   }, useLocal)
@@ -92,12 +107,18 @@ test.describe('SPEC-013 la-escuela — review vs producción', () => {
     expect(local.h1.fontSize).toBe('72px')
     expect(local.acercaTitle.fontSize).toBe('32px')
     expect(local.objetivoPanel.backgroundColor).toBe('rgb(242, 242, 242)')
-    expect(local.colagePanel.backgroundColor).toBe('rgb(242, 242, 242)')
+    expect(local.acercaHasGradient).toBe(true)
+    expect(local.alcanceHasGradient).toBe(true)
+    expect(local.colageBlockBg).toBe('rgb(242, 242, 242)')
     expect(local.ctaTitle.fontSize).toBe('52px')
     expect(local.ctaTitle.color).toBe('rgb(255, 255, 255)')
     expect(local.imageCount).toBe(2)
     expect(local.responsableCount).toBe(4)
     expect(local.principiosHref).toContain('epPrincipes2022.pdf')
+    expect(local.waveCount).toBe(1)
+    expect(local.heroIconWidth).toBe(132)
+    expect(local.alcanceTitleTag).toBe('P')
+    expect(local.acercaTag).toBe('H3')
   })
 
   test('métricas mobile alineadas a producción', async ({ page }) => {

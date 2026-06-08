@@ -1,5 +1,5 @@
 import { initLayout } from '../init-layout.js'
-import { POLOS_PAGE, POLOS_COLUMNS } from '../../data/polos-facl.js'
+import { POLOS_PAGE, POLOS_COLUMNS, POLOS_LOGOS } from '../../data/polos-facl.js'
 import { escapeHtml } from '../utils/escape-html.js'
 
 initLayout()
@@ -12,6 +12,49 @@ function renderHeroSubtitle() {
   }
 
   subtitle.textContent = POLOS_PAGE.subtitle
+}
+
+function renderLogoItem(logo) {
+  const img = `
+    <img
+      src="${escapeHtml(logo.src)}"
+      alt="${escapeHtml(logo.alt)}"
+      width="${logo.width}"
+      height="${logo.height}"
+      loading="lazy"
+      decoding="async"
+    >
+  `
+
+  if (logo.href) {
+    return `
+      <a
+        class="polos-hero__logo-link"
+        href="${escapeHtml(logo.href)}"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="${escapeHtml(logo.alt)}"
+      >${img}</a>
+    `
+  }
+
+  return `<span class="polos-hero__logo-item">${img}</span>`
+}
+
+function renderLogos() {
+  const container = document.getElementById('polos-hero-logos')
+
+  if (!container) {
+    return
+  }
+
+  const items = POLOS_LOGOS.map(renderLogoItem).join('')
+  container.innerHTML = `
+    <div class="polos-hero__logos-track" aria-hidden="false">
+      ${items}
+      ${items}
+    </div>
+  `
 }
 
 function renderPolos() {
@@ -45,4 +88,5 @@ function renderPolos() {
 }
 
 renderHeroSubtitle()
+renderLogos()
 renderPolos()

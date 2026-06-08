@@ -1,16 +1,29 @@
+/* Header / 44 / */
 .escuela-hero {
-  padding: 197px var(--home-section-padding-inline) 112px;
-  background-color: var(--color-bg);
+  padding: 72px 0 42px;
+  background: linear-gradient(
+    180deg,
+    var(--color-bg-muted) 8.86%,
+    var(--color-bg-muted) 70%,
+    var(--color-escuela-hero-yellow) 100%
+  );
 }
 
 .escuela-hero__inner {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--space-6);
-  max-width: 1105px;
+  gap: 10px;
+  max-width: 1094px;
   margin-inline: auto;
+  padding-inline: var(--home-section-padding-inline);
   text-align: center;
+}
+
+.escuela-hero__icon {
+  width: 132px;
+  height: 57px;
+  margin-bottom: var(--space-2);
 }
 
 .escuela-hero__title {
@@ -19,7 +32,7 @@
   font-weight: 500;
   line-height: 0.9;
   letter-spacing: -0.01em;
-  color: #06060d;
+  color: var(--color-text-ink);
   margin: 0;
 }
 
@@ -27,8 +40,8 @@
   font-family: var(--font-nav);
   font-size: var(--font-size-lg);
   font-weight: 400;
-  line-height: 1.5;
-  color: #06060d;
+  line-height: 1.3;
+  color: var(--color-text-ink);
   margin: 0;
 }
 
@@ -36,12 +49,20 @@
   margin-top: var(--space-2);
 }
 
+/* Layout / 22 / */
 .escuela-acerca {
-  padding: 80px var(--home-section-padding-inline);
-  background-color: var(--color-bg);
+  padding: 112px var(--home-section-padding-inline);
+  background: radial-gradient(
+    68.116% 44.7628% at 52.0139% 104.971%,
+    var(--color-divider-yellow) 0%,
+    var(--color-bg-muted) 50%
+  );
 }
 
 .escuela-acerca__inner {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-20);
   max-width: 1312px;
   margin-inline: auto;
 }
@@ -50,9 +71,9 @@
   font-family: var(--font-nav);
   font-size: var(--font-size-3xl);
   font-weight: 400;
-  line-height: 1.2;
+  line-height: 1.4;
   color: var(--color-text-primary);
-  margin: 0 0 var(--space-20);
+  margin: 0;
 }
 
 .escuela-acerca__grid {
@@ -65,11 +86,12 @@
   font-family: var(--font-nav);
   font-size: var(--font-size-lg);
   font-weight: 400;
-  line-height: 1.5;
-  color: #06060d;
+  line-height: 1.3;
+  color: var(--color-text-ink);
   margin: 0;
 }
 
+/* Layout / 192 / */
 .escuela-objetivo {
   padding: 112px var(--home-section-padding-inline);
   background-color: var(--color-footer-bg);
@@ -78,7 +100,7 @@
 .escuela-objetivo__inner {
   display: flex;
   align-items: flex-start;
-  gap: 80px;
+  gap: var(--space-20);
   max-width: 1312px;
   margin-inline: auto;
 }
@@ -92,7 +114,7 @@
 
 .escuela-objetivo__content {
   flex: 1;
-  max-width: 617px;
+  min-width: 0;
   display: flex;
   flex-direction: column;
   gap: var(--space-6);
@@ -102,7 +124,7 @@
   font-family: var(--font-nav);
   font-size: var(--font-size-section-title);
   font-weight: 400;
-  line-height: 1.2;
+  line-height: 1.1;
   color: var(--color-text-primary);
   margin: 0;
 }
@@ -111,8 +133,8 @@
   font-family: var(--font-nav);
   font-size: var(--font-size-lg);
   font-weight: 400;
-  line-height: 1.5;
-  color: #06060d;
+  line-height: 1.3;
+  color: var(--color-text-ink);
   margin: 0;
 }
 
@@ -122,24 +144,45 @@
   gap: var(--space-4);
 }
 
+/* Layout / 1 / */
 .escuela-alcance {
-  padding: 80px var(--home-section-padding-inline) 112px;
-  background-color: var(--color-bg);
+  padding: 112px var(--home-section-padding-inline);
+  background: radial-gradient(
+    123.476% 147.396% at 54.2014% 118.519%,
+    var(--color-escuela-colage-blue) 0%,
+    var(--color-bg-muted) 31.25%,
+    var(--color-bg-muted) 66.44%
+  );
 }
 
 .escuela-alcance__inner {
-  max-width: 1312px;
-  margin-inline: auto;
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: var(--space-6);
+  max-width: 1312px;
+  margin-inline: auto;
+}
+
+.escuela-alcance__logo {
+  width: 60px;
+  height: 64px;
+}
+
+.escuela-alcance__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-6);
+  text-align: center;
+  width: 100%;
 }
 
 .escuela-alcance__title {
   font-family: var(--font-nav);
-  font-size: 3rem;
+  font-size: var(--font-size-4xl);
   font-weight: 400;
-  line-height: 1.2;
+  line-height: 1.1;
   color: var(--color-text-primary);
   margin: 0;
 }
@@ -148,9 +191,10 @@
   font-family: var(--font-nav);
   font-size: var(--font-size-lg);
   font-weight: 400;
-  line-height: 1.5;
-  color: #06060d;
+  line-height: 1.3;
+  color: var(--color-text-ink);
   margin: 0;
+  max-width: 900px;
 }
 
 .escuela-alcance__ctas {
@@ -158,28 +202,45 @@
   justify-content: center;
   flex-wrap: wrap;
   gap: var(--space-4);
-  margin-top: var(--space-4);
+}
+
+/* Layout / 6 / */
+.escuela-colage-block {
+  background-color: var(--color-footer-bg);
+  padding: 0 var(--home-section-padding-inline) 112px;
+}
+
+.escuela-colage-block__wave {
+  display: block;
+  width: calc(100% + (2 * var(--home-section-padding-inline)));
+  max-width: 100vw;
+  height: 17px;
+  margin-inline: calc(-1 * var(--home-section-padding-inline));
+  margin-bottom: 0;
 }
 
 .escuela-colage {
-  padding: 80px var(--home-section-padding-inline) 112px;
-  background-color: var(--color-footer-bg);
+  padding-top: var(--space-20);
 }
 
 .escuela-colage__inner {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 616px;
-  gap: 80px;
-  align-items: start;
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-20);
   max-width: 1312px;
   margin-inline: auto;
 }
 
+.escuela-colage__content {
+  flex: 1;
+  min-width: 0;
+}
+
 .escuela-colage__title {
   font-family: var(--font-nav);
-  font-size: 3rem;
+  font-size: var(--font-size-4xl);
   font-weight: 400;
-  line-height: 1.2;
+  line-height: 1.1;
   color: var(--color-text-primary);
   margin: 0 0 var(--space-8);
 }
@@ -197,8 +258,8 @@
   font-family: var(--font-nav);
   font-size: var(--font-size-lg);
   font-weight: 400;
-  line-height: 1.5;
-  color: #06060d;
+  line-height: 1.3;
+  color: var(--color-text-ink);
   margin: 0 0 var(--space-8);
   max-width: 437px;
 }
@@ -211,7 +272,7 @@
 
 .escuela-colage__label {
   font-family: var(--font-nav);
-  font-size: 1.375rem;
+  font-size: var(--font-size-footer-contact);
   font-weight: 300;
   line-height: 1.2;
   color: var(--color-text-primary);
@@ -223,21 +284,28 @@
   font-size: var(--font-size-base);
   font-weight: 400;
   line-height: 1.5;
-  color: #06060d;
+  color: var(--color-text-ink);
   margin: 0;
   padding: var(--space-1) 0;
 }
 
+.escuela-colage__person strong {
+  font-weight: 700;
+}
+
 .escuela-colage__image {
+  flex: 0 0 616px;
   width: 616px;
   max-width: 100%;
   height: auto;
 }
 
+/* CTA / 27 / */
 .escuela-publicaciones-cta {
   position: relative;
-  min-height: 397px;
-  padding: 80px var(--home-section-padding-inline);
+  min-height: 391px;
+  margin-top: var(--space-20);
+  padding: 112px var(--home-section-padding-inline);
   background-color: var(--color-bg-dark);
   background-image: url('/assets/images/cta-banner.png');
   background-size: cover;
@@ -283,17 +351,22 @@
 }
 
 @media (max-width: 809px) {
-  .escuela-hero,
+  .escuela-hero {
+    padding-block: var(--space-12) var(--space-8);
+  }
+
+  .escuela-hero__inner,
   .escuela-acerca,
   .escuela-objetivo,
   .escuela-alcance,
-  .escuela-colage,
+  .escuela-colage-block,
   .escuela-publicaciones-cta {
     padding-inline: var(--space-6);
   }
 
-  .escuela-hero {
-    padding-block: var(--space-12) var(--space-12);
+  .escuela-colage-block__wave {
+    width: calc(100% + (2 * var(--space-6)));
+    margin-inline: calc(-1 * var(--space-6));
   }
 
   .escuela-hero__title,
@@ -302,17 +375,28 @@
     font-size: 2rem;
   }
 
-  .escuela-acerca__title,
+  .escuela-acerca__title {
+    font-size: 1.375rem;
+  }
+
   .escuela-alcance__title,
   .escuela-colage__title {
-    font-size: 1.375rem;
+    font-size: 1.9375rem;
+  }
+
+  .escuela-acerca,
+  .escuela-objetivo,
+  .escuela-alcance {
+    padding-block: var(--space-12);
+  }
+
+  .escuela-colage-block {
+    padding-bottom: var(--space-12);
   }
 
   .escuela-acerca__grid,
   .escuela-objetivo__inner,
   .escuela-colage__inner {
-    grid-template-columns: 1fr;
-    display: flex;
     flex-direction: column;
     gap: var(--space-8);
   }
@@ -331,6 +415,7 @@
   .escuela-publicaciones-cta {
     min-height: 320px;
     padding-block: var(--space-16);
+    margin-top: var(--space-12);
   }
 }
 
@@ -339,14 +424,22 @@
     font-size: 3.5rem;
   }
 
+  .escuela-objetivo__title,
+  .escuela-publicaciones-cta__title {
+    font-size: 2.625rem;
+  }
+
+  .escuela-alcance__title,
+  .escuela-colage__title {
+    font-size: 2.375rem;
+  }
+
   .escuela-acerca__grid {
     grid-template-columns: 1fr;
   }
 
   .escuela-objetivo__inner,
   .escuela-colage__inner {
-    grid-template-columns: 1fr;
-    display: flex;
     flex-direction: column;
   }
 
