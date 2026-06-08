@@ -1,9 +1,9 @@
 import { initLayout } from '../init-layout.js'
-import { getEventos } from '../supabase-client.js'
+import { getEventos, formatFecha } from '../supabase-client.js'
 import {
-  renderCardEvento,
-  renderCardEventoSkeleton,
-} from '../components/card-evento.js'
+  renderCardPublicacion,
+  renderCardPublicacionSkeleton,
+} from '../components/card-publicacion.js'
 
 initLayout()
 
@@ -64,8 +64,53 @@ const FALLBACK_EVENTOS = [
   },
 ]
 
+function formatEventoFecha(evento) {
+  const inicio = formatFecha(evento.fecha_inicio)
+  const fin = evento.fecha_fin ? formatFecha(evento.fecha_fin) : null
+
+  if (fin && fin !== inicio) {
+    return `${inicio} — ${fin}`
+  }
+
+  return inicio
+}
+
+function buildEventoMeta(evento) {
+  const parts = []
+
+  if (evento.lugar) {
+    parts.push(evento.lugar)
+  }
+
+  if (evento.email) {
+    parts.push(`${evento.email_prefijo || ''}${evento.email}`)
+  }
+
+  return parts.join(' · ')
+}
+
+function renderEventoCard(evento) {
+  const meta = buildEventoMeta(evento)
+
+  return renderCardPublicacion(
+    {
+      titulo: evento.titulo,
+      subtitulo: evento.subtitulo,
+      fecha: evento.fecha_inicio,
+      imagen_url: evento.imagen_url,
+      descripcion: meta,
+      tags: [],
+    },
+    {
+      href: evento.link_externo || '#',
+      external: Boolean(evento.link_externo),
+      fechaLabel: formatEventoFecha(evento),
+    }
+  )
+}
+
 function showInitialSkeletons(grid) {
-  grid.innerHTML = `${renderCardEventoSkeleton()}${renderCardEventoSkeleton()}${renderCardEventoSkeleton()}`
+  grid.innerHTML = `${renderCardPublicacionSkeleton()}${renderCardPublicacionSkeleton()}${renderCardPublicacionSkeleton()}`
 }
 
 async function renderEventos() {
@@ -95,7 +140,7 @@ async function renderEventos() {
   }
 
   grid.setAttribute('aria-busy', 'false')
-  grid.innerHTML = eventos.map(renderCardEvento).join('')
+  grid.innerHTML = eventos.map(renderEventoCard).join('')
 }
 
 renderEventos()

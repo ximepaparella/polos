@@ -16,30 +16,57 @@
   <link rel="stylesheet" href="/css/components/navbar.css">
   <link rel="stylesheet" href="/css/components/footer.css">
   <link rel="stylesheet" href="/css/components/loading.css">
-  <link rel="stylesheet" href="/css/components/card-evento.css">
+  <link rel="stylesheet" href="/css/components/card-publicacion.css">
   <link rel="stylesheet" href="/css/pages/eventos.css">
 </head>
 <body>
-  <main class="eventos-page">
-    <div class="eventos-page__inner">
-      <header class="eventos-hero" aria-label="Próximos eventos">
-        <h1 class="eventos-hero__title">Nuestros próximos eventos</h1>
-        <p class="eventos-hero__subtitle">Descubre nuestros próximos eventos y actividades programadas.</p>
-      </header>
+  <main>
+    <section class="eventos-main" aria-label="Próximos eventos">
+      <div class="eventos-main__inner">
+        <header class="eventos-hero">
+          <img
+            class="eventos-hero__mark"
+            src="/assets/images/footer-mark.svg"
+            alt=""
+            aria-hidden="true"
+            width="99"
+            height="102"
+            decoding="async"
+          >
+          <h2 class="eventos-hero__title">Nuestros próximos eventos</h2>
+          <p class="eventos-hero__subtitle">
+            Descubre nuestros próximos eventos y actividades programadas.
+          </p>
+        </header>
 
-      <div
-        class="eventos-grid"
-        id="eventos-grid"
-        aria-live="polite"
-        aria-busy="true"
-        aria-label="Listado de eventos"
-      ></div>
-    </div>
+        <div
+          class="eventos-grid"
+          id="eventos-grid"
+          aria-live="polite"
+          aria-busy="true"
+          aria-label="Listado de eventos"
+        ></div>
+      </div>
+    </section>
 
     <section class="eventos-instagram-cta" aria-label="Seguir actualizaciones en Instagram">
+      <div class="eventos-instagram-cta__bg" aria-hidden="true">
+        <img
+          src="/assets/images/cta-banner.png"
+          alt=""
+          width="1440"
+          height="408"
+          loading="lazy"
+          decoding="async"
+        >
+      </div>
       <div class="eventos-instagram-cta__inner">
         <h2 class="eventos-instagram-cta__title">SEGUÍ NUESTRAS ACTUALIZACIONES</h2>
-        <a href="#" class="btn btn-hero-ghost eventos-instagram-cta__cta">Ver instagram</a>
+        <p class="eventos-instagram-cta__text">
+          Si querés enterarte de todas las actividades presenciales y/o digitales del Foro,
+          seguinos en nuestras redes sociales y activá las notificaciones.
+        </p>
+        <a href="#" class="btn btn-primary eventos-instagram-cta__cta">Ver instagram</a>
       </div>
     </section>
   </main>

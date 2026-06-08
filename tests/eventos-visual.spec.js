@@ -33,7 +33,7 @@ async function getPageMetrics(page, useLocal = false) {
         )
 
     const cardTitle = isLocal
-      ? document.querySelector('.card-evento__title')
+      ? document.querySelector('.card-publicacion__title')
       : [...document.querySelectorAll('h6')].find((el) =>
           el.textContent?.includes('Simposio Interamericano')
         )
@@ -44,8 +44,10 @@ async function getPageMetrics(page, useLocal = false) {
           el.textContent?.includes('SEGUÍ NUESTRAS ACTUALIZACIONES')
         )
 
-    const pageSection = isLocal ? document.querySelector('.eventos-page') : null
+    const pageSection = isLocal ? document.querySelector('.eventos-main') : null
     const grid = isLocal ? document.querySelector('.eventos-grid') : null
+    const heroMark = isLocal ? document.querySelector('.eventos-hero__mark') : null
+    const ctaText = isLocal ? document.querySelector('.eventos-instagram-cta__text') : null
 
     return {
       title: read(title),
@@ -53,9 +55,11 @@ async function getPageMetrics(page, useLocal = false) {
       cardTitle: read(cardTitle),
       ctaTitle: read(ctaTitle),
       pagePadding: pageSection ? read(pageSection).padding : null,
+      hasHeroMark: Boolean(heroMark),
+      hasCtaText: Boolean(ctaText?.textContent?.includes('enterarte')),
       gridColumns: grid ? read(grid).gridTemplateColumns.split(' ').length : 0,
       eventCount: isLocal
-        ? document.querySelectorAll('.card-evento:not(.card-evento--skeleton)').length
+        ? document.querySelectorAll('.card-publicacion:not(.card-publicacion__skeleton)').length
         : [...document.querySelectorAll('h6')].filter(
             (el) =>
               el.getBoundingClientRect().top > 400 &&
@@ -92,7 +96,7 @@ test.describe('SPEC-020 eventos — review vs producción', () => {
     await page.goto(LOCAL_URL, { waitUntil: 'networkidle' })
     await page.waitForFunction(() => {
       const grid = document.getElementById('eventos-grid')
-      return grid && grid.querySelectorAll('.card-evento:not(.card-evento--skeleton)').length >= 5
+      return grid && grid.querySelectorAll('.card-publicacion:not(.card-publicacion__skeleton)').length >= 5
     })
 
     const local = await getPageMetrics(page, true)
@@ -100,9 +104,11 @@ test.describe('SPEC-020 eventos — review vs producción', () => {
     expect(local.title.fontSize).toBe('52px')
     expect(local.subtitle.fontSize).toBe('18px')
     expect(local.cardTitle.fontSize).toBe('22px')
-    expect(local.gridColumns).toBe(3)
+    expect(local.gridColumns).toBe(2)
     expect(local.eventCount).toBe(5)
     expect(local.hasInstagramCta).toBe(true)
+    expect(local.hasHeroMark).toBe(true)
+    expect(local.hasCtaText).toBe(true)
   })
 
   test('métricas mobile alineadas a producción', async ({ page }) => {
@@ -113,10 +119,11 @@ test.describe('SPEC-020 eventos — review vs producción', () => {
     expect(prod.title.fontSize).toBe('33px')
 
     await page.goto(LOCAL_URL, { waitUntil: 'networkidle' })
-    await page.waitForFunction(() => document.querySelectorAll('.card-evento:not(.card-evento--skeleton)').length >= 5)
+    await page.waitForFunction(() => document.querySelectorAll('.card-publicacion:not(.card-publicacion__skeleton)').length >= 5)
 
     const local = await getPageMetrics(page, true)
     expect(local.title.fontSize).toBe('33px')
+    expect(local.subtitle.fontSize).toBe('14px')
     expect(local.gridColumns).toBe(1)
   })
 
@@ -130,11 +137,11 @@ test.describe('SPEC-020 eventos — review vs producción', () => {
       await page.goto(url, { waitUntil: 'networkidle' })
 
       if (url === LOCAL_URL) {
-        await page.waitForFunction(() => document.querySelectorAll('.card-evento:not(.card-evento--skeleton)').length >= 5)
+        await page.waitForFunction(() => document.querySelectorAll('.card-publicacion:not(.card-publicacion__skeleton)').length >= 5)
       }
 
       const hero = url === LOCAL_URL
-        ? page.locator('.eventos-hero')
+        ? page.locator('.eventos-main')
         : page.locator('h2').first()
 
       await hero.scrollIntoViewIfNeeded()
@@ -142,8 +149,8 @@ test.describe('SPEC-020 eventos — review vs producción', () => {
 
       const box = await hero.evaluate((el) => {
         const target =
-          el.classList?.contains('eventos-hero')
-            ? el.parentElement?.parentElement
+          el.classList?.contains('eventos-main')
+            ? el
             : el.closest('div')?.parentElement
         const r = (target || el).getBoundingClientRect()
         return { y: Math.max(0, r.top + window.scrollY - 74), h: Math.min(r.height + 220, 720) }

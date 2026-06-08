@@ -11,7 +11,13 @@ import { formatFecha } from '../supabase-client.js'
  * @param {string} publicacion.imagen_url
  * @param {string[]} [publicacion.tags]
  */
-export function renderCardPublicacion(publicacion) {
+/**
+ * @param {object} [options]
+ * @param {string} [options.href]
+ * @param {boolean} [options.external]
+ * @param {string} [options.fechaLabel]
+ */
+export function renderCardPublicacion(publicacion, options = {}) {
   const {
     slug,
     titulo,
@@ -22,8 +28,13 @@ export function renderCardPublicacion(publicacion) {
     tags = [],
   } = publicacion
 
-  const href = `/publicaciones-facl?slug=${encodeURIComponent(slug)}`
+  const { href: hrefOverride, external = false, fechaLabel } = options
+  const href = hrefOverride ?? `/publicaciones-facl?slug=${encodeURIComponent(slug)}`
+  const dateText = fechaLabel ?? formatFecha(fecha)
   const metaLine = tags[0] || descripcion
+  const externalAttrs = external
+    ? ' target="_blank" rel="noopener noreferrer"'
+    : ''
 
   return `
     <article class="card-publicacion">
@@ -41,10 +52,10 @@ export function renderCardPublicacion(publicacion) {
         <div class="card-publicacion__copy">
           <h4 class="card-publicacion__title">${escapeHtml(titulo)}</h4>
           ${subtitulo ? `<p class="card-publicacion__subtitle">${escapeHtml(subtitulo)}</p>` : ''}
-          <time class="card-publicacion__date" datetime="${escapeHtml(fecha)}">${escapeHtml(formatFecha(fecha))}</time>
+          <time class="card-publicacion__date" datetime="${escapeHtml(fecha)}">${escapeHtml(dateText)}</time>
           ${metaLine ? `<p class="card-publicacion__meta">${escapeHtml(metaLine)}</p>` : ''}
         </div>
-        <a href="${href}" class="card-publicacion__cta">Ver más</a>
+        <a href="${escapeHtml(href)}" class="card-publicacion__cta"${externalAttrs}>Ver más</a>
       </div>
     </article>
   `
