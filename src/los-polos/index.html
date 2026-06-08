@@ -4,13 +4,44 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Los Polos | FACL</title>
+  <meta name="description" content="Polos del Campo Lacaniano en Argentina. Conocé a los miembros del Foro Argentino del Campo Lacaniano por región.">
+  <meta property="og:title" content="Los Polos | FACL">
+  <meta property="og:description" content="Polos del Campo Lacaniano en Argentina. Conocé a los miembros del Foro Argentino del Campo Lacaniano por región.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://campolacanianoarg.org/los-polos">
+  <meta property="og:image" content="https://campolacanianoarg.org/assets/images/hero-bg.png">
+  <link rel="canonical" href="https://campolacanianoarg.org/los-polos">
+  <link rel="icon" href="/favicon.ico">
   <link rel="stylesheet" href="/css/global.css">
   <link rel="stylesheet" href="/css/components/navbar.css">
+  <link rel="stylesheet" href="/css/components/footer.css">
+  <link rel="stylesheet" href="/css/pages/los-polos.css">
 </head>
 <body>
   <main>
-    <h1>Los Polos</h1>
+    <section class="polos-hero" aria-label="Polos del Campo Lacaniano">
+      <div class="polos-hero__inner">
+        <p class="polos-hero__label">Polos</p>
+        <h1 class="polos-hero__title">Polos del Campo Lacaniano en Argentina</h1>
+        <p class="polos-hero__subtitle" id="polos-hero-subtitle"></p>
+        <div class="polos-hero__ctas">
+          <a href="/sobre-el-foro" class="btn btn-primary">Sobre el foro</a>
+          <a href="/contacto" class="btn btn-secondary">Contacto</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="polos-miembros" aria-label="Miembros por polo">
+      <div class="polos-miembros__inner">
+        <div class="polos-miembros__header">
+          <h2 class="polos-miembros__title">Miembros</h2>
+          <p class="polos-miembros__subtitle">Conoce a los miembros del FACL</p>
+        </div>
+        <div class="polos-columns" id="polos-columns" aria-label="Miembros agrupados por polo"></div>
+      </div>
+    </section>
   </main>
-  <script type="module" src="/js/common.js"></script>
+
+  <script type="module" src="/js/pages/los-polos.js"></script>
 </body>
 </html>

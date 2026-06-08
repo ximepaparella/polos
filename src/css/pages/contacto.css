@@ -1,0 +1,262 @@
+.contacto-main {
+  padding: 132px var(--home-section-padding-inline) 189px;
+  background-color: var(--color-bg);
+}
+
+.contacto-main__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  max-width: 1312px;
+  margin-inline: auto;
+  text-align: center;
+}
+
+.contacto-main__title {
+  font-family: var(--font-nav);
+  font-size: var(--font-size-section-title);
+  font-weight: 400;
+  line-height: 1.2;
+  color: var(--color-text-primary);
+  margin: 0 0 var(--space-4);
+}
+
+.contacto-main__intro,
+.contacto-main__email {
+  font-family: var(--font-nav);
+  font-size: var(--font-size-base);
+  font-weight: 400;
+  line-height: 1.5;
+  color: #06060d;
+  margin: 0;
+}
+
+.contacto-main__email {
+  text-decoration: none;
+}
+
+.contacto-main__email:hover {
+  color: var(--color-nav-link-hover);
+}
+
+.contacto-form {
+  width: 100%;
+  max-width: 240px;
+  margin-top: var(--space-12);
+  text-align: left;
+}
+
+.contacto-form__honeypot {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.contacto-form__lead {
+  font-family: var(--font-nav);
+  font-size: var(--font-size-base);
+  font-weight: 400;
+  line-height: 1.5;
+  color: #06060d;
+  margin: 0 0 30px;
+  text-align: center;
+}
+
+.form__group {
+  margin-bottom: 20px;
+}
+
+.form__group label {
+  display: block;
+  font-family: var(--font-nav);
+  font-size: var(--font-size-xs);
+  font-weight: 500;
+  line-height: 1.25;
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-2);
+}
+
+.form__group input {
+  width: 100%;
+  min-height: 40px;
+  padding: var(--space-3);
+  font-family: var(--font-nav);
+  font-size: var(--font-size-sm);
+  font-weight: 400;
+  line-height: 1.25;
+  color: var(--color-text-primary);
+  background-color: transparent;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+}
+
+.form__group input::placeholder {
+  color: var(--color-text-muted);
+}
+
+.form__group input:focus {
+  outline: none;
+  border-color: var(--color-accent);
+}
+
+.contacto-form__submit {
+  width: 100%;
+  margin-top: var(--space-2);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+}
+
+.form-message--success,
+.form-message--error {
+  margin-top: var(--space-4);
+  font-family: var(--font-nav);
+  font-size: var(--font-size-sm);
+  line-height: 1.4;
+  text-align: center;
+}
+
+.form-message--success {
+  color: #1a6b3c;
+}
+
+.form-message--error {
+  color: #b42318;
+}
+
+.contacto-ubicaciones {
+  padding: 112px var(--home-section-padding-inline);
+  background-color: var(--color-bg);
+}
+
+.contacto-ubicaciones__inner {
+  max-width: 1312px;
+  margin-inline: auto;
+}
+
+.contacto-ubicaciones__label {
+  font-family: var(--font-nav);
+  font-size: var(--font-size-base);
+  font-weight: 400;
+  line-height: 1.5;
+  color: #06060d;
+  margin: 0;
+}
+
+.contacto-ubicaciones__title {
+  font-family: var(--font-nav);
+  font-size: var(--font-size-section-title);
+  font-weight: 400;
+  line-height: 1.2;
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+.contacto-ubicaciones__subtitle {
+  font-family: var(--font-nav);
+  font-size: var(--font-size-lg);
+  font-weight: 400;
+  line-height: 1.5;
+  color: #06060d;
+  margin: var(--space-2) 0 0;
+  max-width: 472px;
+}
+
+.contacto-ubicaciones__grid {
+  display: grid;
+  grid-template-columns: 472px 600px;
+  justify-content: space-between;
+  align-items: start;
+  gap: var(--space-8);
+  margin-top: 115px;
+}
+
+.contacto-ubicaciones__list {
+  margin: 0;
+  padding: 0 0 0 32px;
+  list-style: none;
+}
+
+.contacto-polo + .contacto-polo {
+  margin-top: 47px;
+}
+
+.contacto-polo__name {
+  font-family: var(--font-nav);
+  font-size: 1.375rem;
+  font-weight: 300;
+  line-height: 1.2;
+  color: var(--color-text-primary);
+  margin: 0 0 var(--space-2);
+}
+
+.contacto-polo__email {
+  font-family: var(--font-nav);
+  font-size: var(--font-size-lg);
+  font-weight: 400;
+  line-height: 1.5;
+  color: #06060d;
+  text-decoration: none;
+}
+
+.contacto-polo__email:hover {
+  color: var(--color-nav-link-hover);
+}
+
+.contacto-ubicaciones__map {
+  width: 100%;
+  max-width: 600px;
+}
+
+.contacto-ubicaciones__map iframe {
+  display: block;
+  width: 100%;
+  height: 450px;
+  border: 0;
+}
+
+@media (max-width: 809px) {
+  .contacto-main,
+  .contacto-ubicaciones {
+    padding-inline: var(--space-6);
+  }
+
+  .contacto-main {
+    padding-block: var(--space-16) var(--space-20);
+  }
+
+  .contacto-main__title,
+  .contacto-ubicaciones__title {
+    font-size: 2.0625rem;
+  }
+
+  .contacto-ubicaciones {
+    padding-block: var(--space-16);
+  }
+
+  .contacto-ubicaciones__grid {
+    grid-template-columns: 1fr;
+    margin-top: var(--space-12);
+  }
+
+  .contacto-ubicaciones__list {
+    padding-left: 0;
+  }
+
+  .contacto-ubicaciones__map iframe {
+    height: 360px;
+  }
+}
+
+@media (min-width: 810px) and (max-width: 1439px) {
+  .contacto-ubicaciones__grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    justify-content: stretch;
+  }
+}

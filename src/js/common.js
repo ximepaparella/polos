@@ -1,3 +1,3 @@
-import { initNavbar } from './components/navbar.js'
+import { initLayout } from './init-layout.js'
 
-initNavbar()
+initLayout()

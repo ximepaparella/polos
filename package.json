@@ -10,10 +10,22 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "test:visual:navbar": "playwright test tests/navbar-visual.spec.js tests/navbar-states.spec.js"
+    "test:visual:navbar": "playwright test tests/navbar-visual.spec.js tests/navbar-states.spec.js",
+    "test:visual:footer": "playwright test tests/footer-visual.spec.js",
+    "test:supabase": "playwright test tests/supabase-client.spec.js",
+    "test:visual:home": "playwright test tests/home-visual.spec.js",
+    "test:visual:sobre-el-foro": "playwright test tests/sobre-el-foro-visual.spec.js",
+    "test:visual:los-polos": "playwright test tests/los-polos-visual.spec.js",
+    "test:visual:la-escuela": "playwright test tests/la-escuela-visual.spec.js",
+    "test:visual:contacto": "playwright test tests/contacto-visual.spec.js",
+    "test:visual:eventos": "playwright test tests/eventos-visual.spec.js",
+    "test:visual:publicaciones": "playwright test tests/publicaciones-visual.spec.js",
+    "test:visual:publicacion-detalle": "playwright test tests/publicacion-detalle-visual.spec.js"
   },
   "dependencies": {
-    "@supabase/supabase-js": "^2.0.0"
+    "@supabase/supabase-js": "^2.0.0",
+    "page-flip": "^2.0.7",
+    "pdfjs-dist": "^5.6.205"
   },
   "devDependencies": {
     "@playwright/test": "^1.52.0",

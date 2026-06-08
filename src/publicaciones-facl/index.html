@@ -4,13 +4,59 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Publicaciones | FACL</title>
+  <meta name="description" content="Publicaciones de la Internacional de los Foros del Campo Lacaniano y la EPFCL América Latina Sur.">
+  <meta property="og:title" content="Publicaciones | FACL">
+  <meta property="og:description" content="Publicaciones de la Internacional de los Foros del Campo Lacaniano y la EPFCL América Latina Sur.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://campolacanianoarg.org/publicaciones-facl">
+  <meta property="og:image" content="https://campolacanianoarg.org/assets/images/witz-cover.jpg">
+  <link rel="canonical" href="https://campolacanianoarg.org/publicaciones-facl">
+  <link rel="icon" href="/favicon.ico">
   <link rel="stylesheet" href="/css/global.css">
   <link rel="stylesheet" href="/css/components/navbar.css">
+  <link rel="stylesheet" href="/css/components/footer.css">
+  <link rel="stylesheet" href="/css/components/loading.css">
+  <link rel="stylesheet" href="/css/components/card-publicacion.css">
+  <link rel="stylesheet" href="/css/components/flipbook.css">
+  <link rel="stylesheet" href="/css/pages/publicaciones.css">
+  <link rel="stylesheet" href="/css/pages/publicacion-detalle.css">
 </head>
 <body>
-  <main>
-    <h1>Publicaciones</h1>
+  <main id="publicaciones-main">
+    <section class="pub-hero" aria-label="Publicaciones IF - EPFCL ALS">
+      <div class="pub-hero__inner">
+        <p class="pub-hero__breadcrumb">Publicaciones</p>
+        <h1 class="pub-hero__title">PUBLICACIONES IF - EPFCL ALS</h1>
+        <p class="pub-hero__text">
+          Las publicaciones son esenciales para compartir conocimientos y fomentar el debate en el campo lacaniano.
+        </p>
+        <div class="pub-hero__ctas">
+          <a href="#publicaciones-grid" class="btn btn-primary">Ver publicaciones</a>
+          <a href="/sobre-el-foro" class="btn btn-secondary">Sobre el foro</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="pub-intro" aria-label="Publicaciones destacadas">
+      <div class="pub-intro__inner">
+        <p class="pub-intro__label">Publicaciones</p>
+        <h2 class="pub-intro__title">Explora nuestras publicaciones destacadas</h2>
+        <p class="pub-intro__text">
+          En esta sección, encontrarás una selección de publicaciones relevantes de la Internacional de los Foros del Campo Lacaniano y la EPFCL América Latina Sur.
+        </p>
+      </div>
+    </section>
+
+    <section class="pub-grid-section" aria-label="Listado de publicaciones">
+      <div
+        class="publicaciones-grid"
+        id="publicaciones-grid"
+        aria-live="polite"
+        aria-busy="true"
+      ></div>
+    </section>
   </main>
-  <script type="module" src="/js/common.js"></script>
+
+  <script type="module" src="/js/pages/publicaciones.js"></script>
 </body>
 </html>

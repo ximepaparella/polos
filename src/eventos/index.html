@@ -4,13 +4,46 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Eventos | FACL</title>
+  <meta name="description" content="Próximos eventos y actividades del Foro Argentino del Campo Lacaniano. Simposios, encuentros y jornadas programadas.">
+  <meta property="og:title" content="Eventos | FACL">
+  <meta property="og:description" content="Próximos eventos y actividades del Foro Argentino del Campo Lacaniano. Simposios, encuentros y jornadas programadas.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://campolacanianoarg.org/eventos">
+  <meta property="og:image" content="https://campolacanianoarg.org/assets/images/evento-simposio.png">
+  <link rel="canonical" href="https://campolacanianoarg.org/eventos">
+  <link rel="icon" href="/favicon.ico">
   <link rel="stylesheet" href="/css/global.css">
   <link rel="stylesheet" href="/css/components/navbar.css">
+  <link rel="stylesheet" href="/css/components/footer.css">
+  <link rel="stylesheet" href="/css/components/loading.css">
+  <link rel="stylesheet" href="/css/components/card-evento.css">
+  <link rel="stylesheet" href="/css/pages/eventos.css">
 </head>
 <body>
-  <main>
-    <h1>Eventos</h1>
+  <main class="eventos-page">
+    <div class="eventos-page__inner">
+      <header class="eventos-hero" aria-label="Próximos eventos">
+        <h1 class="eventos-hero__title">Nuestros próximos eventos</h1>
+        <p class="eventos-hero__subtitle">Descubre nuestros próximos eventos y actividades programadas.</p>
+      </header>
+
+      <div
+        class="eventos-grid"
+        id="eventos-grid"
+        aria-live="polite"
+        aria-busy="true"
+        aria-label="Listado de eventos"
+      ></div>
+    </div>
+
+    <section class="eventos-instagram-cta" aria-label="Seguir actualizaciones en Instagram">
+      <div class="eventos-instagram-cta__inner">
+        <h2 class="eventos-instagram-cta__title">SEGUÍ NUESTRAS ACTUALIZACIONES</h2>
+        <a href="#" class="btn btn-hero-ghost eventos-instagram-cta__cta">Ver instagram</a>
+      </div>
+    </section>
   </main>
-  <script type="module" src="/js/common.js"></script>
+
+  <script type="module" src="/js/pages/eventos.js"></script>
 </body>
 </html>

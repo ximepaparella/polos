@@ -372,57 +372,36 @@ VERIFICACIÓN: npm run test:visual:navbar (debe pasar 100%)
 
 ### SPEC-003: Componente Footer
 
+**Referencia:** https://campolacanianoarg.org/ (scroll al footer)
+
+**REVIEW OBLIGATORIA:** `docs/reviews/SPEC-003-footer.md` + `npm run test:visual:footer`
+
+**Valores medidos en producción (la SPEC antigua con fondo oscuro está desactualizada):**
+
+| Aspecto | Producción |
+|---------|------------|
+| Fondo | `#F2F2F2` (NO `#1A1A1A`) |
+| Padding desktop | `80px 0 0` |
+| Padding mobile | `32px 0 47px` |
+| Layout | Marca SVG + Contacto \| Mapa del sitio (2 columnas de links) |
+| Email | Inter 26px desktop / 16px mobile, `letter-spacing: -0.04em` |
+| Labels | 12px, weight 600, sin uppercase |
+| Links hover | `#7A7A7A` + underline (patrón del sitio) |
+
 **Prompt para el agente:**
 ```
-Crea el componente footer completo.
+Inspecciona el footer en producción (desktop 1440px y mobile 375px) con Playwright.
+Replica layout, tipografía y TODOS los estados hover/focus.
 
-ARCHIVO: src/css/components/footer.css
-- .footer: background var(--color-bg-dark), color var(--color-text-light), 
-  padding var(--space-16) 0 var(--space-8)
-- .footer__grid: display grid, grid-template-columns 1fr 1fr, 
-  gap var(--space-8), max-width var(--max-width), margin 0 auto, padding 0 var(--space-6)
-- .footer__contact-label: font-size var(--font-size-xs), text-transform uppercase,
-  letter-spacing 0.1em, opacity 0.6, margin-bottom var(--space-2)
-- .footer__email: font-size var(--font-size-2xl), font-family var(--font-serif),
-  color var(--color-text-light), text-decoration none
-- .footer__email:hover: text-decoration underline
-- .footer__sitemap-title: font-size var(--font-size-xs), text-transform uppercase,
-  letter-spacing 0.1em, opacity 0.6, margin-bottom var(--space-4)
-- .footer__sitemap: display grid, grid-template-columns 1fr 1fr, gap var(--space-2) var(--space-6)
-- .footer__sitemap a: color var(--color-text-light), text-decoration none, 
-  font-size var(--font-size-sm), opacity 0.8
-- .footer__sitemap a:hover: opacity 1
-- .footer__bottom: border-top 1px solid rgba(255,255,255,0.1), 
-  margin-top var(--space-12), padding-top var(--space-6),
-  text-align center, font-size var(--font-size-sm), opacity 0.6
+TOKENS: --color-footer-bg: #F2F2F2, --color-footer-link-hover: #7A7A7A
 
-BREAKPOINT mobile (max-width: 768px):
-- .footer__grid: grid-template-columns 1fr
+ARCHIVOS: footer.css, footer.js, footer-mark.svg
+URLs limpias en mapa del sitio. Orden columnas:
+  Col1: Sobre el Foro, Los Polos, La Escuela
+  Col2: Eventos, Publicaciones, Contacto
 
-ARCHIVO: src/js/components/footer.js
-Exporta función initFooter() que inserta antes de </body>:
-<footer class="footer">
-  <div class="footer__grid">
-    <div>
-      <p class="footer__contact-label">Contacto</p>
-      <a href="mailto:foroargcl@gmail.com" class="footer__email">foroargcl@gmail.com</a>
-    </div>
-    <div>
-      <p class="footer__sitemap-title">Mapa del sitio</p>
-      <nav class="footer__sitemap" aria-label="Mapa del sitio">
-        <a href="/sobre-el-foro.html">Sobre el Foro</a>
-        <a href="/eventos.html">Eventos</a>
-        <a href="/los-polos.html">Los Polos</a>
-        <a href="/publicaciones-facl/index.html">Publicaciones</a>
-        <a href="/la-escuela.html">La Escuela</a>
-        <a href="/contacto.html">Contacto</a>
-      </nav>
-    </div>
-  </div>
-  <div class="footer__bottom">
-    <p>© 2025 FACL. Todos los derechos reservados.</p>
-  </div>
-</footer>
+TESTS: tests/footer-visual.spec.js
+VERIFICACIÓN: npm run test:visual:footer
 ```
 
 ---

@@ -4,14 +4,149 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>FACL | Foro Argentino del Campo Lacaniano</title>
+  <meta name="description" content="Foro argentino del campo Lacaniano. Espacio abierto al debate del psicoanálisis en nuestro tiempo.">
+  <meta property="og:title" content="FACL | Foro Argentino del Campo Lacaniano">
+  <meta property="og:description" content="Foro argentino del campo Lacaniano">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://campolacanianoarg.org/">
+  <meta property="og:image" content="https://campolacanianoarg.org/assets/images/hero-bg.png">
+  <link rel="canonical" href="https://campolacanianoarg.org/">
+  <link rel="icon" href="/favicon.ico">
   <link rel="stylesheet" href="/css/global.css">
   <link rel="stylesheet" href="/css/components/navbar.css">
+  <link rel="stylesheet" href="/css/components/footer.css">
+  <link rel="stylesheet" href="/css/components/card-publicacion.css">
+  <link rel="stylesheet" href="/css/components/loading.css">
+  <link rel="stylesheet" href="/css/pages/home.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Foro Argentino del Campo Lacaniano",
+    "alternateName": "FACL",
+    "url": "https://campolacanianoarg.org",
+    "email": "foroargcl@gmail.com",
+    "description": "Foro argentino del campo Lacaniano"
+  }
+  </script>
 </head>
 <body>
   <main>
-    <h1>FACL — Home</h1>
-    <p>Proyecto inicializado (SPEC-000).</p>
+    <section class="hero" aria-label="Presentación">
+      <div class="hero__bg">
+        <img
+          src="/assets/images/hero-bg.png"
+          alt=""
+          aria-hidden="true"
+          width="1920"
+          height="1080"
+          fetchpriority="high"
+        >
+      </div>
+      <div class="hero__content">
+        <img
+          class="hero__logo"
+          src="/assets/images/hero-logo.png"
+          alt=""
+          aria-hidden="true"
+          width="325"
+          height="164"
+          fetchpriority="high"
+        >
+        <h1 class="hero__title">
+          Bienvenido al Foro Argentino del Campo Lacaniano
+        </h1>
+        <p class="hero__text">
+          El Foro Argentino del Campo Lacaniano, a través de los Polos que lo conforman,
+          vela por asegurar la repercusión y la incidencia del discurso analítico en nuestro
+          tiempo, por el mantenimiento de las conexiones con las instituciones de salud, las
+          prácticas sociales y las políticas que se enfrentan a los síntomas de la época, así
+          como los vínculos con otras prácticas teóricas que implican al sujeto (ciencias,
+          filosofía, arte, religión).
+        </p>
+        <div class="hero__ctas">
+          <a href="/sobre-el-foro" class="btn btn-primary">Sobre el foro</a>
+          <a href="/eventos" class="btn btn-hero-ghost">Eventos</a>
+        </div>
+      </div>
+    </section>
+
+    <div class="section-border" aria-hidden="true">
+      <img
+        src="/assets/images/section-divider.svg"
+        alt=""
+        width="1440"
+        height="17"
+        loading="lazy"
+        decoding="async"
+      >
+    </div>
+
+    <section class="publicaciones-cta" aria-label="Publicaciones del Foro">
+      <div class="publicaciones-cta__inner">
+        <img
+          class="publicaciones-cta__mark"
+          src="/assets/images/sic-mark.svg"
+          alt=""
+          aria-hidden="true"
+          width="42"
+          height="75"
+          loading="lazy"
+        >
+        <div class="publicaciones-cta__content">
+          <h2 class="publicaciones-cta__title">
+            PUBLICACIONES DEL FORO ARGENTINO DEL CAMPO LACANIANO
+          </h2>
+          <p class="publicaciones-cta__text">
+            Accedé a la revista SIC del Foro Argentino del Campo Lacaniano.
+          </p>
+          <a href="/publicaciones-facl" class="btn btn-primary">Ver Publicaciones</a>
+        </div>
+      </div>
+    </section>
+
+    <div class="section-border" aria-hidden="true">
+      <img
+        src="/assets/images/section-divider.svg"
+        alt=""
+        width="1440"
+        height="17"
+        loading="lazy"
+        decoding="async"
+      >
+    </div>
+
+    <section class="ultimas-publicaciones" aria-label="Últimas publicaciones">
+      <div class="ultimas-publicaciones__inner">
+        <div class="ultimas-publicaciones__header">
+          <p class="section-label">Blog</p>
+          <h2 class="ultimas-publicaciones__title">Últimas publicaciones</h2>
+          <p class="ultimas-publicaciones__subtitle">
+            Explora los temas más relevantes y actuales.
+          </p>
+          <a href="/publicaciones-facl" class="btn btn-secondary">Ver todas</a>
+        </div>
+        <div
+          class="publicaciones-grid"
+          id="ultimas-publicaciones-grid"
+          aria-live="polite"
+          aria-busy="true"
+        ></div>
+      </div>
+    </section>
+
+    <div class="section-border" aria-hidden="true">
+      <img
+        src="/assets/images/section-divider.svg"
+        alt=""
+        width="1440"
+        height="17"
+        loading="lazy"
+        decoding="async"
+      >
+    </div>
   </main>
-  <script type="module" src="/js/common.js"></script>
+
+  <script type="module" src="/js/pages/home.js"></script>
 </body>
 </html>
