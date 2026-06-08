@@ -1,6 +1,10 @@
 .page-hero {
   padding: 70px var(--home-section-padding-inline) 112px;
   background-color: var(--color-bg);
+  min-height: 664px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .page-hero__inner {
@@ -14,7 +18,17 @@
 }
 
 .page-hero__title {
-  font-family: var(--font-nav);
+  font-family: var(--font-display);
+  font-size: var(--font-size-hero-title);
+  font-weight: 500;
+  line-height: 0.9;
+  letter-spacing: -0.01em;
+  color: #06060d;
+  margin: 0;
+}
+
+.page-hero__subtitle {
+  font-family: var(--font-display);
   font-size: var(--font-size-hero-title);
   font-weight: 500;
   line-height: 0.9;
@@ -25,7 +39,7 @@
 
 .page-hero__illustration {
   width: 318px;
-  height: auto;
+  height: 248px;
   max-width: 100%;
 }
 
@@ -34,18 +48,19 @@
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
-  gap: var(--space-4);
+  gap: 16px;
 }
 
 .sobre-intro-panel {
   background-color: var(--color-footer-bg);
-  padding: 80px var(--home-section-padding-inline);
+  padding: 112px var(--home-section-padding-inline);
 }
 
 .sobre-intro-panel__inner {
   display: flex;
   flex-direction: column;
-  gap: var(--space-4);
+  gap: 24px;
+  width: 82%;
   max-width: 1076px;
   margin-inline: auto;
   text-align: center;
@@ -61,7 +76,12 @@
 }
 
 .sobre-historia {
-  padding: 80px var(--home-section-padding-inline) 96px;
+  background: radial-gradient(
+    68.116% 44.7628% at 52.0139% 104.971%,
+    var(--color-divider-yellow) 0%,
+    var(--color-bg-muted) 50%
+  );
+  padding: 112px var(--home-section-padding-inline);
 }
 
 .sobre-historia__inner {
@@ -104,7 +124,11 @@
 }
 
 .carta-ifcl {
-  padding: 96px var(--home-section-padding-inline);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-20);
+  padding: 112px var(--home-section-padding-inline) 1px;
   text-align: center;
 }
 
@@ -112,9 +136,31 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--space-6);
-  max-width: 945px;
+  gap: 27px;
+  width: 80%;
   margin-inline: auto;
+}
+
+.carta-ifcl__body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-8);
+  width: 90%;
+}
+
+.carta-ifcl__copy {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  width: 100%;
+}
+
+.carta-ifcl__thumb {
+  width: 168px;
+  height: 165px;
+  object-fit: cover;
 }
 
 .carta-ifcl__title {
@@ -124,6 +170,8 @@
   line-height: 1.1;
   color: #000000;
   margin: 0;
+  width: 100%;
+  margin-bottom: var(--space-4);
 }
 
 .carta-ifcl__text {
@@ -133,6 +181,7 @@
   line-height: 1.3;
   color: #06060d;
   margin: 0;
+  width: 92%;
   max-width: 869px;
 }
 
@@ -141,11 +190,15 @@
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
-  gap: var(--space-4);
+  gap: 16px;
 }
 
-.coordinacion {
-  padding: 0 var(--home-section-padding-inline) 96px;
+.carta-ifcl__coord {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-20);
+  width: 100%;
 }
 
 .coordinacion__label {
@@ -155,28 +208,31 @@
   line-height: 1.2;
   color: #000000;
   text-align: center;
-  margin: 0 0 var(--space-10);
+  margin: 0;
 }
 
 .coordinacion__grid {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   justify-content: center;
+  align-items: flex-start;
   gap: 44px;
+  width: 100%;
   max-width: 1312px;
   margin-inline: auto;
+  margin-bottom: var(--space-20);
 }
 
 .coordinacion__item {
-  width: 192px;
   text-align: center;
+  flex: 0 1 auto;
 }
 
 .coordinacion__name {
   font-family: var(--font-nav);
   font-size: var(--font-size-footer-contact);
   font-weight: 700;
-  line-height: 1.3;
+  line-height: 1.4;
   color: #06060d;
   margin: 0;
 }
@@ -185,17 +241,18 @@
   font-family: var(--font-nav);
   font-size: var(--font-size-footer-contact);
   font-weight: 400;
-  line-height: 1.3;
+  line-height: 1.4;
   color: #06060d;
   margin: 0;
 }
 
 .miembros-section {
   background-color: var(--color-footer-bg);
-  padding: 80px var(--home-section-padding-inline) 112px;
+  padding: 112px var(--home-section-padding-inline);
 }
 
 .miembros-section__header {
+  width: 59%;
   max-width: 774px;
   margin-bottom: var(--space-10);
 }
@@ -239,30 +296,49 @@
 
 @media (max-width: 809px) {
   .page-hero {
+    min-height: auto;
     padding: var(--space-8) var(--space-6) var(--space-12);
   }
 
-  .page-hero__title {
+  .page-hero__title,
+  .page-hero__subtitle {
     font-size: 2rem;
   }
 
   .sobre-intro-panel,
   .sobre-historia,
-  .carta-ifcl,
-  .coordinacion,
   .miembros-section {
-    padding-inline: var(--space-6);
+    padding: 56px var(--space-6) 112px;
+  }
+
+  .carta-ifcl {
+    padding: 56px var(--space-6) 1px;
+  }
+
+  .sobre-intro-panel__inner,
+  .carta-ifcl__inner,
+  .carta-ifcl__body {
+    width: 100%;
   }
 
   .sobre-historia__title,
-  .carta-ifcl__title,
   .miembros-section__title {
     font-size: var(--font-size-3xl);
   }
 
+  .carta-ifcl__title {
+    font-size: 2.0625rem;
+    margin-bottom: var(--space-4);
+  }
+
   .coordinacion__grid {
-    flex-direction: column;
-    align-items: center;
+    display: grid;
+    grid-template-columns: 1fr;
+    flex-wrap: unset;
+  }
+
+  .miembros-section__header {
+    width: 100%;
   }
 
   .miembros__list {
@@ -271,11 +347,27 @@
 }
 
 @media (min-width: 810px) and (max-width: 1439px) {
-  .page-hero__title {
+  .page-hero__title,
+  .page-hero__subtitle {
     font-size: 3.5rem;
+  }
+
+  .carta-ifcl__title {
+    font-size: 2.625rem;
+    margin-bottom: var(--space-4);
+  }
+
+  .coordinacion__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    flex-wrap: unset;
   }
 
   .miembros__list {
     column-count: 2;
+  }
+
+  .miembros-section__header {
+    width: 73%;
   }
 }
