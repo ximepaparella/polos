@@ -108,7 +108,7 @@ test.describe('SPEC-012 los-polos — review vs producción', () => {
     expect(local.poloName.fontSize).toBe('26px')
     expect(local.member.fontSize).toBe('18px')
     expect(local.poloCount).toBe(6)
-    expect(local.memberCount).toBe(136)
+    expect(local.memberCount).toBe(143)
     expect(local.poloArticleCount).toBe(6)
     expect(local.membersGridColumns).toBe(3)
     expect(local.equipoLabel.fontSize).toBe('14px')

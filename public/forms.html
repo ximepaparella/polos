@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Netlify Forms — detección en build</title>
+</head>
+<body>
+  <!-- Página estática para que Netlify detecte el formulario en el deploy -->
+  <form name="suscripcion" method="POST" data-netlify="true" netlify netlify-honeypot="bot-field">
+    <input type="hidden" name="form-name" value="suscripcion">
+    <input type="text" name="nombre">
+    <input type="email" name="email">
+    <p hidden>
+      <label>No completar: <input name="bot-field" type="text"></label>
+    </p>
+  </form>
+</body>
+</html>

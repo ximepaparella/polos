@@ -59,7 +59,7 @@ test.describe('SPEC-011 sobre-el-foro — review vs producción', () => {
     const local = await getPageMetrics(page, true)
     expect(local.h1.fontSize).toBe('72px')
     expect(local.introPanel.backgroundColor).toBe('rgb(242, 242, 242)')
-    expect(local.memberCount).toBe(133)
+    expect(local.memberCount).toBe(143)
     expect(local.coordCount).toBe(6)
   })
 

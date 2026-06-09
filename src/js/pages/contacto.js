@@ -44,29 +44,44 @@ function initPoloTabs() {
   })
 }
 
-const NETLIFY_FORM_ACTION = '/contacto/'
-
-async function submitToNetlify(form) {
-  const params = new URLSearchParams(new FormData(form))
-  params.set('form-name', 'suscripcion')
-
-  const response = await fetch(NETLIFY_FORM_ACTION, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    body: params.toString(),
-  })
-
-  return response.ok || response.status === 302
-}
-
 function setFormMessage(messageEl, ok, message) {
   messageEl.textContent = message
   messageEl.className = ok ? 'form-message--success' : 'form-message--error'
 }
 
+async function submitToNetlify(form) {
+  const params = new URLSearchParams(new FormData(form))
+  params.set('form-name', 'suscripcion')
+
+  const response = await fetch('/', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: params.toString(),
+  })
+
+  if (response.ok || response.status === 302) {
+    return 'ok'
+  }
+
+  if (response.status === 404) {
+    return 'fallback-native'
+  }
+
+  return 'error'
+}
+
 const form = document.getElementById('form-suscripcion')
 const submitBtn = document.getElementById('form-submit')
 const messageEl = document.getElementById('form-message')
+
+if (messageEl) {
+  const sent = new URLSearchParams(window.location.search).get('enviado')
+
+  if (sent === 'ok') {
+    setFormMessage(messageEl, true, SUCCESS_MESSAGE)
+    window.history.replaceState({}, '', window.location.pathname)
+  }
+}
 
 if (form && submitBtn && messageEl) {
   form.addEventListener('submit', async (event) => {
@@ -99,11 +114,14 @@ if (form && submitBtn && messageEl) {
     messageEl.textContent = ''
 
     try {
-      const sent = await submitToNetlify(form)
+      const result = await submitToNetlify(form)
 
-      if (sent) {
+      if (result === 'ok') {
         setFormMessage(messageEl, true, SUCCESS_MESSAGE)
         form.reset()
+      } else if (result === 'fallback-native') {
+        HTMLFormElement.prototype.submit.call(form)
+        return
       } else {
         setFormMessage(messageEl, false, ERROR_MESSAGE)
       }
@@ -111,8 +129,10 @@ if (form && submitBtn && messageEl) {
       console.error('Error enviando formulario:', error)
       setFormMessage(messageEl, false, ERROR_MESSAGE)
     } finally {
-      submitBtn.disabled = false
-      submitBtn.textContent = SUBMIT_LABEL
+      if (submitBtn.isConnected) {
+        submitBtn.disabled = false
+        submitBtn.textContent = SUBMIT_LABEL
+      }
     }
   })
 }
