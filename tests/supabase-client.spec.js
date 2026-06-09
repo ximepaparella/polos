@@ -5,7 +5,6 @@ import {
   getPublicacionBySlug,
   getPublicacionesAdyacentes,
   getEventos,
-  suscribir,
   supabase,
 } from '../src/js/supabase-client.js'
 
@@ -22,7 +21,6 @@ test.describe('SPEC-004 supabase-client', () => {
     expect(typeof getPublicacionBySlug).toBe('function')
     expect(typeof getPublicacionesAdyacentes).toBe('function')
     expect(typeof getEventos).toBe('function')
-    expect(typeof suscribir).toBe('function')
     expect(typeof formatFecha).toBe('function')
     expect(supabase === null || typeof supabase.from === 'function').toBe(true)
   })
@@ -35,8 +33,5 @@ test.describe('SPEC-004 supabase-client', () => {
       next: null,
     })
     await expect(getEventos()).resolves.toEqual([])
-    await expect(suscribir('Test', 'test@example.com')).resolves.toMatchObject({
-      ok: false,
-    })
   })
 })

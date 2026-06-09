@@ -121,35 +121,6 @@ export async function getEventos() {
   return data
 }
 
-// ─── SUSCRIPTORES ─────────────────────────────────────────────
-
-/**
- * Registra un suscriptor nuevo
- * @param {string} nombre
- * @param {string} email
- */
-export async function suscribir(nombre, email) {
-  if (!supabase) {
-    return { ok: false, message: 'Error al registrar. Intentá nuevamente.' }
-  }
-
-  const { data, error } = await supabase
-    .from('suscriptores')
-    .insert([{ nombre: nombre.trim(), email: email.trim().toLowerCase() }])
-    .select()
-
-  if (error) {
-    if (error.code === '23505') {
-      return { ok: false, message: 'Este email ya está registrado.' }
-    }
-
-    console.error('Error suscribiendo:', error)
-    return { ok: false, message: 'Error al registrar. Intentá nuevamente.' }
-  }
-
-  return { ok: true, message: '¡Te suscribiste correctamente!' }
-}
-
 // ─── UTILIDADES ───────────────────────────────────────────────
 
 /**

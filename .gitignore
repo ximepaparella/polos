@@ -12,3 +12,14 @@ tests/screenshots/
 tests/playwright-report/
 test-results/
 playwright/.cache/
+
+# Documentación local — no deployar
+*.md
+docs/
+
+# Assets scrapeados no usados
+/images/
+
+# Cursor / IDE
+.cursor/
+.cursorrules

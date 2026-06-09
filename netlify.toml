@@ -1,6 +1,19 @@
+# Deploy checklist (GitHub → Netlify):
+# 1. Push repo sin .env, docs/, *.md ni images/
+# 2. Import site from Git; build usa este archivo (publish=dist, Node 20)
+# 3. Site settings → Environment variables:
+#    VITE_SUPABASE_URL, VITE_SUPABASE_ANON_KEY (publicaciones/eventos/home)
+# 4. Tras primer deploy → Forms tab debe listar "suscripcion"
+# 5. Site settings → Forms → Form notifications → email: foroargcl@gmail.com
+# 6. Probar submit en /contacto y confirmar recepción del email
+# 7. Dominio custom: campolacanianoarg.org en Netlify DNS
+
 [build]
   publish = "dist"
   command = "npm run build"
+
+[build.environment]
+  NODE_VERSION = "20"
 
 [[redirects]]
   from = "/publicaciones-facl/*"
@@ -12,6 +25,9 @@
   [headers.values]
     X-Frame-Options = "DENY"
     X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=()"
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://*.supabase.co; frame-src 'self' https://www.google.com; object-src 'none'; base-uri 'self'; form-action 'self'"
 
 [[headers]]
   for = "/assets/*"
