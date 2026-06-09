@@ -44,16 +44,19 @@ function initPoloTabs() {
   })
 }
 
-async function submitToNetlify(form) {
-  const body = new URLSearchParams(new FormData(form)).toString()
+const NETLIFY_FORM_ACTION = '/contacto/'
 
-  const response = await fetch('/', {
+async function submitToNetlify(form) {
+  const params = new URLSearchParams(new FormData(form))
+  params.set('form-name', 'suscripcion')
+
+  const response = await fetch(NETLIFY_FORM_ACTION, {
     method: 'POST',
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    body,
+    body: params.toString(),
   })
 
-  return response.ok
+  return response.ok || response.status === 302
 }
 
 function setFormMessage(messageEl, ok, message) {

@@ -136,6 +136,14 @@
     </section>
   </main>
 
+  <!-- Formulario estático para detección de Netlify Forms en build -->
+  <form name="suscripcion" netlify netlify-honeypot="bot-field" hidden>
+    <input type="hidden" name="form-name" value="suscripcion">
+    <input type="text" name="nombre">
+    <input type="email" name="email">
+    <input type="text" name="bot-field">
+  </form>
+
   <script type="module" src="/js/pages/home.js"></script>
 </body>
 </html>
