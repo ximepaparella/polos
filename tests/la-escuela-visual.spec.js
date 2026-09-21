@@ -67,7 +67,7 @@ async function getPageMetrics(page, useLocal = false) {
       colageBlockBg: colageBlock ? getComputedStyle(colageBlock).backgroundColor : null,
       ctaTitle: read(ctaTitle),
       imageCount: isLocal
-        ? document.querySelectorAll('.escuela-objetivo__image, .escuela-colage__image').length
+        ? document.querySelectorAll('.escuela-objetivo__image').length
         : 0,
       responsableCount: isLocal
         ? document.querySelectorAll('.escuela-colage__person').length
@@ -112,7 +112,7 @@ test.describe('SPEC-013 la-escuela — review vs producción', () => {
     expect(local.colageBlockBg).toBe('rgb(242, 242, 242)')
     expect(local.ctaTitle.fontSize).toBe('40px')
     expect(local.ctaTitle.color).toBe('rgb(255, 255, 255)')
-    expect(local.imageCount).toBe(2)
+    expect(local.imageCount).toBe(1)
     expect(local.responsableCount).toBe(4)
     expect(local.principiosHref).toContain('epPrincipes2022.pdf')
     expect(local.waveCount).toBe(1)

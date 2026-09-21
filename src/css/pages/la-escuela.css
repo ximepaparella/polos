@@ -294,13 +294,6 @@
   font-weight: 700;
 }
 
-.escuela-colage__image {
-  flex: 0 0 616px;
-  width: 616px;
-  max-width: 100%;
-  height: auto;
-}
-
 /* CTA / 27 / */
 .escuela-publicaciones-cta {
   position: relative;
@@ -417,8 +410,7 @@
     gap: var(--space-8);
   }
 
-  .escuela-objetivo__image,
-  .escuela-colage__image {
+  .escuela-objetivo__image {
     flex: none;
     width: 100%;
   }
@@ -444,8 +436,7 @@
     flex-direction: column;
   }
 
-  .escuela-objetivo__image,
-  .escuela-colage__image {
+  .escuela-objetivo__image {
     width: 100%;
     max-width: 616px;
     margin-inline: auto;
