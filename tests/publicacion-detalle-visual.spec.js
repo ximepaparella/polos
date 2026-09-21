@@ -104,7 +104,7 @@ test.describe('SPEC-022/023 publicacion-detalle — review vs producción', () =
     const totalPages = Number(counter.split('/')[1]?.trim())
 
     expect(totalPages).toBeGreaterThan(1)
-    await expect(page.locator('.stf__parent')).toHaveCount(1)
+    await expect(page.locator('.fb-root')).toHaveCount(1)
   })
 
   test('captura detalle desktop', async ({ page }) => {

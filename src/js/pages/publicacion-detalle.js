@@ -65,13 +65,6 @@ function getMetaLabel(publicacion) {
   return formatSubtitle(publicacion)
 }
 
-function getFlipbookSize() {
-  const width = Math.min(550, Math.max(280, window.innerWidth - 80))
-  const height = Math.min(733, Math.round(width * (733 / 550)))
-
-  return { width, height }
-}
-
 export async function renderDetalle(slug) {
   const main = document.querySelector('main')
 
@@ -149,13 +142,18 @@ export async function renderDetalle(slug) {
         </div>
       </section>
 
-      <section class="flipbook-section" aria-label="Visor de revista">
+      <section class="flipbook-section" data-flipbook-fs aria-label="Visor de revista">
         <div class="flipbook-section__inner">
           <div id="flipbook-wrapper"></div>
           <div class="flipbook-controls" id="flipbook-controls">
             <button type="button" id="btn-prev" class="btn btn-secondary" aria-label="Página anterior">← Anterior</button>
             <span id="page-counter" aria-live="polite">1 / ?</span>
             <button type="button" id="btn-next" class="btn btn-primary" aria-label="Página siguiente">Siguiente →</button>
+            <div class="flipbook-controls__zoom" role="group" aria-label="Zoom de páginas">
+              <button type="button" id="btn-zoom-out" class="btn btn-secondary" aria-label="Alejar">−</button>
+              <span id="zoom-level" aria-live="polite">100%</span>
+              <button type="button" id="btn-zoom-in" class="btn btn-secondary" aria-label="Acercar">+</button>
+            </div>
             <button type="button" id="btn-fullscreen" class="btn btn-secondary" aria-label="Pantalla completa">Pantalla completa</button>
           </div>
         </div>
@@ -174,8 +172,7 @@ export async function renderDetalle(slug) {
   `
 
   if (publicacion.pdf_url) {
-    const { width, height } = getFlipbookSize()
-    const flipbook = new Flipbook('flipbook-wrapper', publicacion.pdf_url, { width, height })
+    const flipbook = new Flipbook('flipbook-wrapper', publicacion.pdf_url)
     await flipbook.init()
   }
 }

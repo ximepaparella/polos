@@ -1,33 +1,52 @@
-import { PageFlip } from 'page-flip'
 import * as pdfjsLib from 'pdfjs-dist'
 import pdfjsWorker from 'pdfjs-dist/build/pdf.worker.min.mjs?url'
+import '../../vendor/pdflipbook.js'
 
 pdfjsLib.GlobalWorkerOptions.workerSrc = pdfjsWorker
+window.pdfjsLib = pdfjsLib
 
+const ZOOM_STEPS = [1, 1.25, 1.5, 2, 2.5, 3]
+
+function getPDFlipbook() {
+  return window.PDFlipbook
+}
+
+/**
+ * Wrapper around vendored PDFlipbook.
+ * Replaces StPageFlip (no zoom, cropped pages) with in-place zoom/pan and fitted pages.
+ */
 export class Flipbook {
   constructor(containerId, pdfUrl, options = {}) {
     this.container = document.getElementById(containerId)
     this.pdfUrl = pdfUrl
-    this.pageFlip = null
+    this.options = options
+    this.book = null
     this.totalPages = 0
-    this.options = {
-      width: options.width || 550,
-      height: options.height || 733,
-      size: 'stretch',
-      minWidth: 280,
-      maxWidth: 864,
-      minHeight: 360,
-      maxHeight: 733,
-      showCover: true,
-      mobileScrollSupport: true,
-      useMouseEvents: true,
-      ...options,
+
+    this.handleReady = (event) => {
+      this.totalPages = event.detail?.pages || this.book?.numPages || 0
+      const page = this.book?.currentPage?.() || 1
+      this.updatePageCounter(page)
+      this.updateZoomControls(this.book?.zoom || 1)
     }
 
-    this.handleDisplayChange = () => {
-      requestAnimationFrame(() => {
-        this.enhanceCanvasResolution()
-      })
+    this.handlePageChange = (event) => {
+      if (event.detail?.pages) {
+        this.totalPages = event.detail.pages
+      }
+      this.updatePageCounter(event.detail?.page || 1)
+    }
+
+    this.handleZoomChange = (event) => {
+      this.updateZoomControls(event.detail?.zoom)
+    }
+
+    this.handleError = () => {
+      this.showError()
+    }
+
+    this.handleFullscreenChange = () => {
+      this.updateFullscreenButton()
     }
   }
 
@@ -36,146 +55,44 @@ export class Flipbook {
       return
     }
 
-    this.showLoading()
+    const PDFlipbook = getPDFlipbook()
+
+    if (!PDFlipbook?.create) {
+      this.showError()
+      return
+    }
+
+    this.container.addEventListener('flipbook:ready', this.handleReady)
+    this.container.addEventListener('flipbook:pagechange', this.handlePageChange)
+    this.container.addEventListener('flipbook:zoomchange', this.handleZoomChange)
+    this.container.addEventListener('flipbook:error', this.handleError)
 
     try {
-      const pdf = await pdfjsLib.getDocument(this.pdfUrl).promise
-      this.totalPages = pdf.numPages
+      this.book = PDFlipbook.create(this.container, {
+        url: this.pdfUrl,
+        startPage: 1,
+        displayMode: 'double',
+        zoomSteps: ZOOM_STEPS,
+        controls: false,
+        arrows: false,
+        pageNumbers: false,
+        shadow: 'none',
+        padding: 8,
+        maxScale: 2.5,
+        ...this.options,
+      })
 
-      const images = []
+      const statusText = this.container.querySelector('.fb-status-text')
 
-      for (let pageNum = 1; pageNum <= pdf.numPages; pageNum += 1) {
-        this.updateLoadingProgress(pageNum, pdf.numPages)
-        const imageDataUrl = await this.renderPage(pdf, pageNum)
-        images.push(imageDataUrl)
+      if (statusText) {
+        statusText.textContent = 'Cargando revista...'
       }
 
-      this.hideLoading()
-      this.initPageFlip(images)
       this.initControls()
     } catch (error) {
-      console.error('Error cargando PDF:', error)
+      console.error('Error iniciando flipbook:', error)
       this.showError()
     }
-  }
-
-  getEstimatedBookWidth() {
-    const sectionInner = this.container?.closest('.flipbook-section__inner')
-    const containerWidth = sectionInner?.clientWidth || this.container?.clientWidth
-
-    if (containerWidth) {
-      return Math.min(this.options.maxWidth, containerWidth)
-    }
-
-    return Math.min(this.options.maxWidth, Math.max(this.options.width, window.innerWidth - 80))
-  }
-
-  getPdfRenderScale(page) {
-    const pixelRatio = Math.min(window.devicePixelRatio || 1, 2.5)
-    const baseViewport = page.getViewport({ scale: 1 })
-    const bookWidth = this.getEstimatedBookWidth()
-    const pageDisplayWidth = bookWidth / 2
-    const pageDisplayHeight = pageDisplayWidth * (this.options.height / this.options.width)
-    const margin = 1.2
-
-    const targetWidth = pageDisplayWidth * pixelRatio * margin
-    const targetHeight = pageDisplayHeight * pixelRatio * margin
-
-    const scaleX = targetWidth / baseViewport.width
-    const scaleY = targetHeight / baseViewport.height
-
-    return Math.min(Math.max(scaleX, scaleY, 1.5), 4)
-  }
-
-  async renderPage(pdf, pageNum) {
-    const page = await pdf.getPage(pageNum)
-    const scale = this.getPdfRenderScale(page)
-    const viewport = page.getViewport({ scale })
-    const canvas = document.createElement('canvas')
-    const context = canvas.getContext('2d')
-
-    canvas.width = viewport.width
-    canvas.height = viewport.height
-
-    context.imageSmoothingEnabled = true
-    context.imageSmoothingQuality = 'high'
-
-    await page.render({
-      canvasContext: context,
-      viewport,
-    }).promise
-
-    return canvas.toDataURL('image/jpeg', 0.95)
-  }
-
-  initPageFlip(images) {
-    const flipContainer = document.createElement('div')
-    flipContainer.id = 'flip-container'
-    flipContainer.className = 'flipbook__container'
-    this.container.appendChild(flipContainer)
-
-    this.pageFlip = new PageFlip(flipContainer, this.options)
-    this.pageFlip.on('init', () => {
-      this.patchCanvasUpdate()
-      requestAnimationFrame(() => {
-        this.enhanceCanvasResolution()
-      })
-    })
-    this.pageFlip.loadFromImages(images)
-    this.patchCanvasUpdate()
-
-    window.addEventListener('resize', this.handleDisplayChange)
-    document.addEventListener('fullscreenchange', this.handleDisplayChange)
-
-    this.pageFlip.on('flip', (event) => {
-      this.updatePageCounter(event.data + 1)
-    })
-  }
-
-  patchCanvasUpdate() {
-    const ui = this.pageFlip?.getUI()
-
-    if (!ui || ui._canvasDpiPatched) {
-      return
-    }
-
-    const originalUpdate = ui.update.bind(ui)
-    ui.update = () => {
-      originalUpdate()
-      this.enhanceCanvasResolution()
-    }
-    ui._canvasDpiPatched = true
-  }
-
-  enhanceCanvasResolution() {
-    const canvas = this.container?.querySelector('.stf__canvas')
-
-    if (!canvas || !this.pageFlip) {
-      return
-    }
-
-    const pixelRatio = Math.min(window.devicePixelRatio || 1, 2.5)
-    const displayWidth = canvas.clientWidth
-    const displayHeight = canvas.clientHeight
-
-    if (!displayWidth || !displayHeight) {
-      return
-    }
-
-    const targetWidth = Math.floor(displayWidth * pixelRatio)
-    const targetHeight = Math.floor(displayHeight * pixelRatio)
-
-    if (canvas.width === targetWidth && canvas.height === targetHeight) {
-      return
-    }
-
-    canvas.width = targetWidth
-    canvas.height = targetHeight
-
-    const context = canvas.getContext('2d')
-    context.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0)
-
-    this.pageFlip.getRender().update()
   }
 
   initControls() {
@@ -186,65 +103,107 @@ export class Flipbook {
     }
 
     document.getElementById('btn-prev')?.addEventListener('click', () => {
-      this.pageFlip?.flipPrev()
+      this.book?.prev()
     })
 
     document.getElementById('btn-next')?.addEventListener('click', () => {
-      this.pageFlip?.flipNext()
+      this.book?.next()
     })
 
-    document.getElementById('btn-fullscreen')?.addEventListener('click', async () => {
-      const target = this.container?.closest('.flipbook-section') || this.container
-
-      if (document.fullscreenElement) {
-        await document.exitFullscreen()
-        return
-      }
-
-      await target?.requestFullscreen?.()
+    document.getElementById('btn-zoom-in')?.addEventListener('click', () => {
+      this.book?.zoomIn()
     })
 
-    this.updatePageCounter(1)
+    document.getElementById('btn-zoom-out')?.addEventListener('click', () => {
+      this.book?.zoomOut()
+    })
+
+    document.getElementById('btn-fullscreen')?.addEventListener('click', () => {
+      this.book?.toggleFullscreen()
+    })
+
+    document.addEventListener('fullscreenchange', this.handleFullscreenChange)
+    document.addEventListener('webkitfullscreenchange', this.handleFullscreenChange)
+    this.updateZoomControls(1)
+    this.updateFullscreenButton()
+  }
+
+  isSectionFullscreen() {
+    const section = this.container?.closest('[data-flipbook-fs]')
+    const fsEl = document.fullscreenElement || document.webkitFullscreenElement
+    return Boolean(section && fsEl && (fsEl === section || section.contains(fsEl)))
+  }
+
+  updateFullscreenButton() {
+    const btn = document.getElementById('btn-fullscreen')
+
+    if (!btn) {
+      return
+    }
+
+    const active = this.isSectionFullscreen() || Boolean(this.book?.fsFake)
+    btn.textContent = active ? 'Salir de pantalla completa' : 'Pantalla completa'
+    btn.setAttribute('aria-label', btn.textContent)
   }
 
   updatePageCounter(current) {
     const counter = document.getElementById('page-counter')
 
-    if (counter) {
+    if (counter && this.totalPages) {
       counter.textContent = `${current} / ${this.totalPages}`
     }
   }
 
-  showLoading() {
-    this.container.innerHTML = `
-      <div class="flipbook-loading" role="status" aria-live="polite">
-        <div class="flipbook-loading__spinner" aria-hidden="true"></div>
-        <p id="loading-text" class="flipbook-loading__text">Cargando revista...</p>
-      </div>
-    `
-  }
+  updateZoomControls(zoom = this.book?.zoom) {
+    const level = typeof zoom === 'number' ? zoom : 1
+    const label = document.getElementById('zoom-level')
+    const zoomIn = document.getElementById('btn-zoom-in')
+    const zoomOut = document.getElementById('btn-zoom-out')
+    const maxZoom = ZOOM_STEPS[ZOOM_STEPS.length - 1]
 
-  updateLoadingProgress(current, total) {
-    const el = document.getElementById('loading-text')
-
-    if (el) {
-      el.textContent = `Cargando página ${current} de ${total}...`
+    if (label) {
+      label.textContent = `${Math.round(level * 100)}%`
     }
-  }
 
-  hideLoading() {
-    const loading = this.container.querySelector('.flipbook-loading')
+    if (zoomIn) {
+      zoomIn.disabled = level >= maxZoom - 0.01
+    }
 
-    if (loading) {
-      loading.remove()
+    if (zoomOut) {
+      zoomOut.disabled = level <= 1.01
     }
   }
 
   showError() {
+    this.container.removeEventListener('flipbook:ready', this.handleReady)
+    this.container.removeEventListener('flipbook:pagechange', this.handlePageChange)
+    this.container.removeEventListener('flipbook:zoomchange', this.handleZoomChange)
+    this.container.removeEventListener('flipbook:error', this.handleError)
+    document.removeEventListener('fullscreenchange', this.handleFullscreenChange)
+    document.removeEventListener('webkitfullscreenchange', this.handleFullscreenChange)
+
+    try {
+      this.book?.destroy()
+    } catch {
+      // ignore teardown errors
+    }
+
+    this.book = null
     this.container.innerHTML = `
       <div class="flipbook-error" role="alert">
         <p>No se pudo cargar la revista. Por favor intentá descargar el PDF directamente.</p>
       </div>
     `
+  }
+
+  destroy() {
+    this.container?.removeEventListener('flipbook:ready', this.handleReady)
+    this.container?.removeEventListener('flipbook:pagechange', this.handlePageChange)
+    this.container?.removeEventListener('flipbook:zoomchange', this.handleZoomChange)
+    this.container?.removeEventListener('flipbook:error', this.handleError)
+    document.removeEventListener('fullscreenchange', this.handleFullscreenChange)
+    document.removeEventListener('webkitfullscreenchange', this.handleFullscreenChange)
+    this.book?.destroy()
+    this.book = null
   }
 }

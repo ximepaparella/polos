@@ -15,32 +15,45 @@
 }
 
 #flipbook-wrapper {
+  --fb-bg: transparent;
+  --fb-paper: var(--color-bg);
+  --fb-control-bg: var(--color-btn-soft);
+  --fb-control-fg: var(--color-text-primary);
+  --fb-counter-fg: var(--color-text-secondary);
+  --fb-shadow: none;
+  position: relative;
   width: 100%;
-  min-height: 360px;
+  /* Explicit height beats PDFlipbook's .fb-root { height:100% } which
+     fights auto-sized parents and can cause layout flicker. */
+  height: 560px !important;
+  min-height: 560px !important;
+  max-height: 560px !important;
+  background-color: transparent;
+  overflow: hidden;
+  contain: layout paint;
 }
 
-.flipbook__container {
-  margin-inline: auto;
+#flipbook-wrapper.fb-root {
+  outline: none;
 }
 
-.flipbook-loading {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--space-4);
-  padding: var(--space-16);
+#flipbook-wrapper .fb-status {
+  background-color: var(--color-bg-alt);
+  color: var(--color-text-secondary);
+  font-family: var(--font-nav);
+  font-size: var(--font-size-base);
 }
 
-.flipbook-loading__spinner {
-  width: 48px;
-  height: 48px;
-  border: 4px solid var(--color-border);
+#flipbook-wrapper .fb-spinner {
+  border-color: var(--color-border);
   border-top-color: var(--color-accent);
-  border-radius: 50%;
-  animation: flipbook-spin 0.8s linear infinite;
 }
 
-.flipbook-loading__text,
+/* Keep camera moves snappy; long easing on every transform feels like flicker. */
+#flipbook-wrapper .fb-stage {
+  transition: none;
+}
+
 .flipbook-error p {
   font-family: var(--font-nav);
   font-size: var(--font-size-base);
@@ -51,6 +64,11 @@
 }
 
 .flipbook-error {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
   padding: var(--space-16);
 }
 
@@ -63,24 +81,71 @@
   width: 100%;
 }
 
-#page-counter {
+.flipbook-controls__zoom {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+#page-counter,
+#zoom-level {
   font-family: var(--font-nav);
   font-size: var(--font-size-sm);
   color: var(--color-text-secondary);
+  min-width: 3.5rem;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
 }
 
-@keyframes flipbook-spin {
-  to {
-    transform: rotate(360deg);
-  }
+#zoom-level {
+  min-width: 3.25rem;
 }
 
-.flipbook-section:fullscreen {
+.flipbook-controls__zoom .btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* Fullscreen hosts the whole section so controls stay visible. */
+.flipbook-section:fullscreen,
+.flipbook-section.fb-fake-fs {
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  align-items: stretch;
   justify-content: center;
-  padding: var(--space-8);
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  padding: var(--space-6);
   background-color: var(--color-bg-alt);
+}
+
+.flipbook-section:fullscreen .flipbook-section__inner,
+.flipbook-section.fb-fake-fs .flipbook-section__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: center;
+  gap: var(--space-4);
+  width: 100%;
+  max-width: min(1200px, 100%);
+  height: 100%;
+  margin-inline: auto;
+}
+
+.flipbook-section:fullscreen #flipbook-wrapper,
+.flipbook-section.fb-fake-fs #flipbook-wrapper {
+  flex: 1 1 auto;
+  width: 100%;
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+}
+
+.flipbook-section:fullscreen .flipbook-controls,
+.flipbook-section.fb-fake-fs .flipbook-controls {
+  flex: 0 0 auto;
+  padding-block: var(--space-2);
 }
 
 @media (max-width: 809px) {
@@ -88,4 +153,9 @@
     padding: 48px var(--space-3) 64px;
   }
 
+  #flipbook-wrapper {
+    height: 420px !important;
+    min-height: 420px !important;
+    max-height: 420px !important;
+  }
 }
