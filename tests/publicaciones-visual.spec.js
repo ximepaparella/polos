@@ -90,7 +90,7 @@ test.describe('SPEC-021 publicaciones — review vs producción', () => {
     expect(local.gridDirection).toBe('row')
     expect(local.hasSearch).toBe(false)
     expect(local.introTitleTag).toBe('P')
-    expect(local.pubCount).toBe(2)
+    expect(local.pubCount).toBe(3)
     expect(local.hasHeroCtas).toBe(2)
   })
 

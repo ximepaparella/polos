@@ -195,12 +195,13 @@
 
 @media (max-width: 809px) {
   .hero {
-    justify-content: flex-end;
+    justify-content: center;
     min-height: 754px;
   }
 
   .hero__content {
     width: 88%;
+    margin-inline: auto;
     padding: 47px 0;
     gap: 12px;
   }

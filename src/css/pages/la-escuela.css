@@ -403,7 +403,11 @@
     padding-bottom: var(--space-12);
   }
 
-  .escuela-acerca__grid,
+  .escuela-acerca__grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-8);
+  }
+
   .escuela-objetivo__inner,
   .escuela-colage__inner {
     flex-direction: column;

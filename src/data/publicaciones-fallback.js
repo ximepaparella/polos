@@ -1,5 +1,18 @@
 export const FALLBACK_PUBLICACIONES = [
   {
+    slug: 'revista-witz-2',
+    titulo: 'WITZ 2',
+    subtitulo: 'Las transformaciones del Deseo',
+    descripcion:
+      'Esta revista recoge los trabajos presentados en las Jornadas de Cartel y Escuela que se llevaron a cabo en Puerto Madryn (2024). "Las transformaciones del deseo" es el título que nos lleva a preguntarnos de qué transformaciones se trata cuando hablamos del deseo, y a recorrer el deseo del analista, la supervisión, el malestar contemporáneo y las mutaciones del final del análisis.',
+    fecha: '2026-10-01',
+    fecha_label: 'Octubre 2026',
+    imagen_url: '/assets/images/witz-2-cover.jpg',
+    pdf_url: '/assets/pdfs/witz-2.pdf',
+    tags: ['Revista WITZ 2 ISSN (en línea) 3072-9394'],
+    issn: null,
+  },
+  {
     slug: 'revista-de-psicoanalisis-de-la-epfcl-alsur',
     titulo: 'WITZ',
     subtitulo: 'Revista de Psicoanálisis de la EPFCL América Latina Sur',

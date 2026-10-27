@@ -14,16 +14,28 @@ function renderHeroSubtitle() {
   subtitle.textContent = POLOS_PAGE.subtitle
 }
 
+const POLO_MARK = `
+  <img
+    class="polos-logo__mark"
+    src="/assets/images/polos/polo-mark.svg"
+    alt=""
+    width="40"
+    height="40"
+    decoding="async"
+    aria-hidden="true"
+  >
+`
+
 function renderLogoItem(logo) {
-  const img = `
-    <img
-      src="${escapeHtml(logo.src)}"
-      alt="${escapeHtml(logo.alt)}"
-      width="${logo.width}"
-      height="${logo.height}"
-      loading="lazy"
-      decoding="async"
-    >
+  const label = logo.name
+  const wordmark = `
+    <span class="polos-logo">
+      ${POLO_MARK}
+      <span class="polos-logo__text">
+        <span class="polos-logo__facl">FACL</span>
+        <span class="polos-logo__name">${escapeHtml(logo.name)}</span>
+      </span>
+    </span>
   `
 
   if (logo.href) {
@@ -33,12 +45,12 @@ function renderLogoItem(logo) {
         href="${escapeHtml(logo.href)}"
         target="_blank"
         rel="noopener noreferrer"
-        aria-label="${escapeHtml(logo.alt)}"
-      >${img}</a>
+        aria-label="${escapeHtml(label)}"
+      >${wordmark}</a>
     `
   }
 
-  return `<span class="polos-hero__logo-item">${img}</span>`
+  return `<span class="polos-hero__logo-item">${wordmark}</span>`
 }
 
 function renderLogos() {

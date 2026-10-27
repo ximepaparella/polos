@@ -133,7 +133,7 @@ export async function renderDetalle(slug) {
               <span class="publicacion-detalle__avatar" aria-hidden="true"></span>
               ${metaLabel ? `<p class="publicacion-detalle__tag">${escapeHtml(metaLabel)}</p>` : ''}
             </div>
-            <time class="publicacion-detalle__date" datetime="${escapeHtml(publicacion.fecha)}">${escapeHtml(formatFecha(publicacion.fecha))}</time>
+            <time class="publicacion-detalle__date" datetime="${escapeHtml(publicacion.fecha_label ? publicacion.fecha.slice(0, 7) : publicacion.fecha)}">${escapeHtml(publicacion.fecha_label || formatFecha(publicacion.fecha))}</time>
           </div>
 
           ${publicacion.pdf_url

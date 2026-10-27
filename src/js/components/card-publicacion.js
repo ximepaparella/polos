@@ -24,13 +24,15 @@ export function renderCardPublicacion(publicacion, options = {}) {
     subtitulo = '',
     descripcion = '',
     fecha,
+    fecha_label: fechaLabelPublicacion = '',
     imagen_url: imagenUrl,
     tags = [],
   } = publicacion
 
   const { href: hrefOverride, external = false, fechaLabel } = options
   const href = hrefOverride ?? `/publicaciones-facl?slug=${encodeURIComponent(slug)}`
-  const dateText = fechaLabel ?? formatFecha(fecha)
+  const dateText = fechaLabel || fechaLabelPublicacion || formatFecha(fecha)
+  const dateTime = fechaLabelPublicacion ? fecha.slice(0, 7) : fecha
   const metaLine = tags[0] || descripcion
   const externalAttrs = external
     ? ' target="_blank" rel="noopener noreferrer"'
@@ -52,7 +54,7 @@ export function renderCardPublicacion(publicacion, options = {}) {
         <div class="card-publicacion__copy">
           <h4 class="card-publicacion__title">${escapeHtml(titulo)}</h4>
           ${subtitulo ? `<p class="card-publicacion__subtitle">${escapeHtml(subtitulo)}</p>` : ''}
-          <time class="card-publicacion__date" datetime="${escapeHtml(fecha)}">${escapeHtml(dateText)}</time>
+          <time class="card-publicacion__date" datetime="${escapeHtml(dateTime)}">${escapeHtml(dateText)}</time>
           ${metaLine ? `<p class="card-publicacion__meta">${escapeHtml(metaLine)}</p>` : ''}
         </div>
         <a href="${escapeHtml(href)}" class="card-publicacion__cta"${externalAttrs}>Ver más</a>

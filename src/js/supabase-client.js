@@ -23,7 +23,7 @@ export async function getPublicaciones(limit = null) {
 
   let query = supabase
     .from('publicaciones')
-    .select('id, slug, titulo, subtitulo, descripcion, fecha, imagen_url, tags, issn')
+    .select('id, slug, titulo, subtitulo, descripcion, fecha, fecha_label, imagen_url, pdf_url, tags, issn')
     .eq('activo', true)
     .order('fecha', { ascending: false })
 
