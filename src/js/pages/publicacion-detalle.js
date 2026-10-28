@@ -9,6 +9,9 @@ import {
 } from '../../data/publicaciones-fallback.js'
 import { escapeHtml } from '../utils/escape-html.js'
 import { Flipbook } from '../components/flipbook.js'
+import { PdfReader } from '../components/pdf-reader.js'
+
+const MOBILE_PDF_MQ = '(max-width: 809px)'
 
 function updateMeta(publicacion) {
   document.title = `${publicacion.titulo} | FACL`
@@ -142,7 +145,7 @@ export async function renderDetalle(slug) {
         </div>
       </section>
 
-      <section class="flipbook-section" data-flipbook-fs aria-label="Visor de revista">
+      <section class="flipbook-section" data-flipbook-fs aria-label="Visor de publicación">
         <div class="flipbook-section__inner">
           <div id="flipbook-wrapper"></div>
           <div class="flipbook-controls" id="flipbook-controls">
@@ -172,7 +175,15 @@ export async function renderDetalle(slug) {
   `
 
   if (publicacion.pdf_url) {
-    const flipbook = new Flipbook('flipbook-wrapper', publicacion.pdf_url)
-    await flipbook.init()
+    // Mobile: single-page reader (fit-width + zoom). Desktop: flipbook spread.
+    const useMobileReader = window.matchMedia(MOBILE_PDF_MQ).matches
+
+    if (useMobileReader) {
+      const reader = new PdfReader('flipbook-wrapper', publicacion.pdf_url)
+      await reader.init()
+    } else {
+      const flipbook = new Flipbook('flipbook-wrapper', publicacion.pdf_url)
+      await flipbook.init()
+    }
   }
 }

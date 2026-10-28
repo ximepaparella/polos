@@ -5,7 +5,7 @@ import '../../vendor/pdflipbook.js'
 pdfjsLib.GlobalWorkerOptions.workerSrc = pdfjsWorker
 window.pdfjsLib = pdfjsLib
 
-const ZOOM_STEPS = [1, 1.25, 1.5, 2, 2.5, 3]
+const ZOOM_STEPS = [1, 1.2, 1.4, 1.6, 1.8, 2, 2.2, 2.4, 2.6, 2.8, 3]
 
 function getPDFlipbook() {
   return window.PDFlipbook

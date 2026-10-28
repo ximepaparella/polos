@@ -107,6 +107,33 @@ test.describe('SPEC-022/023 publicacion-detalle — review vs producción', () =
     await expect(page.locator('.fb-root')).toHaveCount(1)
   })
 
+  test('mobile usa pdf-reader de una página', async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 })
+    await page.goto(LOCAL_URL, { waitUntil: 'networkidle' })
+
+    await page.waitForFunction(
+      () => {
+        const counter = document.getElementById('page-counter')
+        return counter && counter.textContent?.includes('/') && !counter.textContent?.includes('?')
+      },
+      { timeout: 120000 }
+    )
+
+    await expect(page.locator('#flipbook-wrapper.pdf-reader')).toHaveCount(1)
+    await expect(page.locator('.fb-root')).toHaveCount(0)
+    await expect(page.locator('.pdf-reader__canvas')).toBeVisible()
+
+    const counter = await page.locator('#page-counter').textContent()
+    const totalPages = Number(counter.split('/')[1]?.trim())
+    expect(totalPages).toBeGreaterThan(1)
+
+    await page.locator('#btn-next').click()
+    await expect(page.locator('#page-counter')).toHaveText(`2 / ${totalPages}`)
+
+    await page.locator('#btn-zoom-in').click()
+    await expect(page.locator('#zoom-level')).toHaveText('120%')
+  })
+
   test('captura detalle desktop', async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 900 })
 

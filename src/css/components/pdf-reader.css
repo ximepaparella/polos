@@ -1,0 +1,99 @@
+/* ID needed to override #flipbook-wrapper fixed heights from flipbook.css */
+#flipbook-wrapper.pdf-reader {
+  position: relative;
+  width: 100%;
+  height: min(72dvh, 640px) !important;
+  min-height: min(72dvh, 640px) !important;
+  max-height: none !important;
+  background-color: var(--color-bg);
+  overflow: hidden;
+  contain: layout paint;
+}
+
+.pdf-reader__status {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  width: 100%;
+  height: 100%;
+  padding: var(--space-4);
+  background-color: var(--color-bg-alt);
+  color: var(--color-text-secondary);
+  font-family: var(--font-nav);
+  font-size: var(--font-size-base);
+  text-align: center;
+}
+
+.pdf-reader__status[hidden],
+.pdf-reader__viewport[hidden] {
+  display: none;
+}
+
+.pdf-reader__spinner {
+  width: 2rem;
+  height: 2rem;
+  border: 2px solid var(--color-border);
+  border-top-color: var(--color-accent);
+  border-radius: 50%;
+  animation: pdf-reader-spin 0.8s linear infinite;
+}
+
+@keyframes pdf-reader-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.pdf-reader__viewport {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+  touch-action: pan-x pan-y;
+  padding: var(--space-2);
+  box-sizing: border-box;
+  background-color: var(--color-bg-alt);
+}
+
+/*
+  Stage grows with the canvas but stays at least full width.
+  Avoids flex justify-content:center clipping the left side when zoomed.
+*/
+.pdf-reader__stage {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  box-sizing: border-box;
+  min-width: 100%;
+  width: max-content;
+}
+
+.pdf-reader__canvas {
+  display: block;
+  flex: 0 0 auto;
+  max-width: none;
+  height: auto;
+  background-color: var(--color-bg);
+  box-shadow: var(--shadow-sm);
+  touch-action: manipulation;
+}
+
+.pdf-reader__error {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  padding: var(--space-16);
+}
+
+.flipbook-section:fullscreen #flipbook-wrapper.pdf-reader,
+.flipbook-section.fb-fake-fs #flipbook-wrapper.pdf-reader {
+  flex: 1 1 auto;
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+}

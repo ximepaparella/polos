@@ -153,7 +153,17 @@
     padding: 48px var(--space-3) 64px;
   }
 
-  #flipbook-wrapper {
+  .flipbook-controls {
+    gap: var(--space-2);
+  }
+
+  .flipbook-controls .btn {
+    font-size: var(--font-size-sm);
+    padding: var(--space-2) var(--space-3);
+  }
+
+  /* Flipbook desktop-only; mobile uses .pdf-reader (taller viewport). */
+  #flipbook-wrapper:not(.pdf-reader) {
     height: 420px !important;
     min-height: 420px !important;
     max-height: 420px !important;
